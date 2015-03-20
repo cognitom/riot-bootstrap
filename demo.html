@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Bootstrap-like Components for Riot.js</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="dist/normalize.css">
+  <link rel="stylesheet" href="demo/style.css">
+</head>
+
+<body>
+  <article>
+    <h2>Demo</h2>
+
+    <h3>Button tag</h3>
+
+    <p>Use the <code>&lt;btn&gt;</code> elements.</p>
+
+    <demo-button></demo-button>
+
+    <p>Currently doesn't work on Riot.js v2.0.13. See `index.html` to check the demo.</p>
+
+  </article>
+
+  <script src="https://cdn.jsdelivr.net/riot/2.0/riot.js"></script>
+  <script src="dist/riot-bootstrap.js"></script>
+  <script src="demo/demo.js"></script>
+  <script>riot.mount('*')</script>
+</body>
+
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Bootstrap-like Components for Riot.js</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="dist/normalize.css">
+  <link rel="stylesheet" href="demo/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Riot Bootstrap</h1>
+    <h2>Bootstrap-like Components for Riot.js</h2>
+    <p>CURRENTLY EXPERIMENTAL</p>
+  </header>
+
+  <article>
+    <h2>Buttons</h2>
+
+    <h3>Button tag</h3>
+
+    <p>Use the <code>&lt;btn&gt;</code> elements.</p>
+
+    <section>
+      <btn>btn</btn>
+    </section>
+
+    <h3>Options</h3>
+
+    <p>Use any of the available button <code>option</code> to quickly create a styled button.</p>
+
+    <section>
+      <btn>Default</btn>
+      <btn option="primary">Primary</btn>
+      <btn option="success">Success</btn>
+      <btn option="info">Info</btn>
+      <btn option="warning">Warning</btn>
+      <btn option="danger">Danger</btn>
+      <btn option="link">Link</btn>
+    </section>
+
+    <h3>Sizes</h3>
+
+    <p>Fancy larger or smaller buttons? Set the <code>size</code> attributes for additional sizes: <code>lg</code>, <code>sm</code>, or <code>xs</code></p>
+
+    <section>
+      <p>
+        <btn option="primary" size="lg">Large button</btn>
+        <btn size="lg">Large button</btn>
+      </p>
+      <p>
+        <btn option="primary">Default button</btn>
+        <btn>Default button</btn>
+      </p>
+      <p>
+        <btn option="primary" size="sm">Small button</btn>
+        <btn size="sm">Small button</btn>
+      </p>
+      <p>
+        <btn option="primary" size="xs">Extra small button</btn>
+        <btn size="xs">Extra small button</btn>
+      </p>
+    </section>
+  </article>
+
+  <article>
+    <h2>Button groups</h2>
+
+    <p>Group a series of buttons together on a single line with the button group. </p>
+
+    <section>
+      <btn-group>
+        <btn>Left</btn>
+        <btn>Middle</btn>
+        <btn>Right</btn>
+      </btn-group>
+    </section>
+  </article>
+
+  <article>
+    <h2>Dropdowns</h2>
+
+    <p>Toggleable, contextual menu for displaying lists of links.</p>
+
+    <section>
+      <btn-group>
+        <btn toggle="menu">Default <caret /></btn>
+        <menu>
+          <menu-item value="action">Action</menu-item>
+          <menu-item value="another">Another action</menu-item>
+          <menu-item value="something">Something else here</menu-item>
+          <menu-item value="separated">Separated link</menu-item>
+        </menu>
+      </btn-group>
+
+      <btn-group>
+        <btn toggle="menu" option="primary">Primary <caret /></btn>
+        <menu>
+          <menu-item value="action">Action</menu-item>
+          <menu-item value="another">Another action</menu-item>
+          <menu-item value="something">Something else here</menu-item>
+          <menu-item value="separated">Separated link</menu-item>
+        </menu>
+      </btn-group>
+    </section>
+
+    <h3>Headers</h3>
+
+    <p>Add a header to label sections of actions in any dropdown menu.</p>
+
+    <section>
+      <btn-group>
+        <btn toggle="menu">Default <caret /></btn>
+        <menu>
+          <menu-header>Dropdown header</menu-header>
+          <menu-item value="action">Action</menu-item>
+          <menu-item value="another">Another action</menu-item>
+          <menu-item value="something">Something else here</menu-item>
+          <menu-header>Dropdown header</menu-header>
+          <menu-item value="separated">Separated link</menu-item>
+        </menu>
+      </btn-group>
+
+      <btn-group>
+        <btn toggle="menu" option="primary">Primary <caret /></btn>
+        <menu>
+          <menu-header>Dropdown header</menu-header>
+          <menu-item value="action">Action</menu-item>
+          <menu-item value="another">Another action</menu-item>
+          <menu-item value="something">Something else here</menu-item>
+          <menu-header>Dropdown header</menu-header>
+          <menu-item value="separated">Separated link</menu-item>
+        </menu>
+      </btn-group>
+    </section>
+
+    <h3>Divider</h3>
+
+    <p>Add a divider to separate series of links in a dropdown menu.</p>
+
+    <section>
+      <btn-group>
+        <btn toggle="menu">Default <caret /></btn>
+        <menu>
+          <menu-item value="action">Action</menu-item>
+          <menu-item value="another">Another action</menu-item>
+          <menu-item value="something">Something else here</menu-item>
+          <menu-divider></menu-divider>
+          <menu-item value="separated">Separated link</menu-item>
+        </menu>
+      </btn-group>
+
+      <btn-group>
+        <btn toggle="menu" option="primary">Primary <caret /></btn>
+        <menu>
+          <menu-item value="action">Action</menu-item>
+          <menu-item value="another">Another action</menu-item>
+          <menu-item value="something">Something else here</menu-item>
+          <menu-divider></menu-divider>
+          <menu-item value="separated">Separated link</menu-item>
+        </menu>
+      </btn-group>
+    </section>
+
+    <h3>Split button dropdowns</h3>
+
+    <section>
+      <btn-group>
+        <btn>Default</btn>
+        <btn toggle="menu"><caret /></btn>
+        <menu>
+          <menu-item value="action">Action</menu-item>
+          <menu-item value="another">Another action</menu-item>
+          <menu-item value="something">Something else here</menu-item>
+          <menu-divider></menu-divider>
+          <menu-item value="separated">Separated link</menu-item>
+        </menu>
+      </btn-group>
+
+      <btn-group>
+        <btn option="primary">Primary</btn>
+        <btn toggle="menu" option="primary"><caret /></btn>
+        <menu>
+          <menu-item value="action">Action</menu-item>
+          <menu-item value="another">Another action</menu-item>
+          <menu-item value="something">Something else here</menu-item>
+          <menu-divider></menu-divider>
+          <menu-item value="separated">Separated link</menu-item>
+        </menu>
+      </btn-group>
+    </section>
+  </article>
+
+  <footer>
+    <p>
+      Maintained by <a href="https://github.com/cognitom">@cognitom</a> with the help of our contributors.<br>
+      Code licensed under MIT, documentation under CC BY 3.0
+    </p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/riot/2.0/riot.js"></script>
+  <script src="dist/riot-bootstrap.js"></script>
+  <script>riot.mount('*')</script>
+</body>
+
+</html>

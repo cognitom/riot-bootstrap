@@ -1,0 +1,57 @@
+<menu>
+  <script>
+    var parent = this.root.parentElement.tag
+    var opened = false
+
+    this.root.tag = this // needed for communicate with child tags
+
+    open (e) {
+      if (!opened) {
+        opened = true
+        this.root.style.display = 'block'
+        setTimeout(this.addEventListners, 1)
+      }
+    }
+    close (e) {
+      opened = false
+      this.root.style.display = 'none'
+      this.removeEventListners()
+    }
+    select (value) {
+      if (opts.onselect) opts.onselect(value)
+    }
+    addEventListners (e) {
+      document.addEventListener('touchstart', this.close, false)
+      document.addEventListener('click', this.close, false)
+    }
+    removeEventListners (e) {
+      document.removeEventListener('touchstart', this.close)
+      document.removeEventListener('click', this.close)
+    }
+
+    if (parent) parent.on('inner-btn-toggle', this.open)
+  </script>
+
+  <style scoped>
+    :scope {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 1000;
+      display: none;
+      float: left;
+      min-width: 160px;
+      padding: 5px 0;
+      margin: 2px 0 0;
+      font-size: 14px;
+      text-align: left;
+      list-style: none;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #ccc;
+      border: 1px solid rgba(0, 0, 0, .15);
+      border-radius: 4px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    }
+  </style>
+</menu>

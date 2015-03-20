@@ -1,0 +1,17 @@
+{
+  "name": "riot-bootstrap",
+  "version": "0.0.1",
+  "description": "Bootstrap-like Components for Riot.js",
+  "author": "Tsutomu Kawamura <cognitom@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "browser-sync": "^1.9.0",
+    "normalize-css": "^2.3.1",
+    "riot": "^2.0.13"
+  },
+  "scripts": {
+    "build": "riot --ext html ./components dist/riot-bootstrap.js && riot --ext html ./demo demo/demo.js && cp ./node_modules/normalize-css/normalize.css dist/",
+    "start": "riot --ext html -w ./components dist/riot-bootstrap.js & riot --ext html -w ./demo demo/demo.js & browser-sync start --server --files './*.html, demo/*, dist/*'"
+  }
+}

@@ -1,0 +1,140 @@
+<btn>
+  <button
+    type="button"
+    disabled={ opts.disabled }
+    data-option={ opts.option }
+    data-size={ opts.size }
+    onclick={ click }
+    ></button>
+
+  <script>
+    var parent = this.root.parentElement.tag
+    var content = opts.content
+
+    click (e) {
+      if (parent && opts.toggle) parent.trigger('inner-btn-toggle')
+      if (opts.onclick) opts.onclick(e)
+    }
+    setContent () {
+      this.root.firstChild.innerHTML = content
+    }
+    if (!content) content = this.root.innerHTML
+    this.root.innerHTML = ''
+    this.one('mount', this.setContent)
+  </script>
+
+  <style scoped>
+    button {
+      display: inline-block;
+      padding: 6px 12px;
+      margin-bottom: 0;
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 1.42857143;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-image: none;
+      border: 1px solid transparent;
+      border-radius: 4px;
+    }
+    button:focus {
+      outline: thin dotted;
+      outline: 5px auto -webkit-focus-ring-color;
+      outline-offset: -2px;
+    }
+    button:hover,
+    button:focus {
+      color: #333;
+      text-decoration: none;
+    }
+    button:active {
+      background-image: none;
+      outline: 0;
+      box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    }
+    button[disabled] {
+      pointer-events: none;
+      cursor: not-allowed;
+      box-shadow: none;
+      opacity: .65;
+    }
+
+    /**
+     * Alternate buttons
+     */
+
+    /* option: default */
+    button { color: #333; background-color: #fff; border-color: #ccc }
+    button:hover,
+    button:focus,
+    button:active { color: #333; background-color: #e6e6e6; border-color: #adadad }
+    /* option: primary */
+    button[data-option="primary"] { color: #fff; background-color: #337ab7; border-color: #2e6da4 }
+    button[data-option="primary"]:hover,
+    button[data-option="primary"]:focus,
+    button[data-option="primary"]:active { color: #fff; background-color: #286090; border-color: #204d74 }
+    /* option: success */
+    button[data-option="success"] { color: #fff; background-color: #5cb85c; border-color: #4cae4c }
+    button[data-option="success"]:hover,
+    button[data-option="success"]:focus,
+    button[data-option="success"]:active { color: #fff; background-color: #449d44; border-color: #398439 }
+    /* option: info */
+    button[data-option="info"] { color: #fff; background-color: #5bc0de; border-color: #46b8da }
+    button[data-option="info"]:hover,
+    button[data-option="info"]:focus,
+    button[data-option="info"]:active { color: #fff; background-color: #31b0d5; border-color: #269abc }
+    /* option: warning */
+    button[data-option="warning"] { color: #fff; background-color: #f0ad4e; border-color: #f0ad4e }
+    button[data-option="warning"]:hover,
+    button[data-option="warning"]:focus,
+    button[data-option="warning"]:active { color: #fff; background-color: #ec971f; border-color: #d58512 }
+    /* option: danger */
+    button[data-option="danger"] { color: #fff; background-color: #d9534f; border-color: #d43f3a }
+    button[data-option="danger"]:hover,
+    button[data-option="danger"]:focus,
+    button[data-option="danger"]:active { color: #fff; background-color: #c9302c; border-color: #ac2925 }
+
+    /**
+     * Link buttons
+     */
+
+    button[data-option="link"] {
+      font-weight: normal;
+      color: #337ab7;
+      border-radius: 0;
+      background-color: transparent;
+      border-color: transparent;
+      box-shadow: none;
+    }
+    button[data-option="link"]:hover,
+    button[data-option="link"]:focus {
+      color: #23527c;
+      text-decoration: underline;
+    }
+
+    /**
+     * Button Sizes
+     */
+
+    button[data-size="lg"] {
+      padding: 10px 16px;
+      font-size: 18px;
+      line-height: 1.3333333;
+      border-radius: 6px;
+    }
+    button[data-size="sm"] {
+      padding: 5px 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+    button[data-size="xs"] {
+      padding: 1px 5px;
+      font-size: 12px;
+      line-height: 1.5;
+      border-radius: 3px;
+    }
+  </style>
+</btn>
