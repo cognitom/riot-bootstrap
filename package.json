@@ -1,20 +1,28 @@
 {
   "name": "riot-bootstrap",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Bootstrap-like Components for Riot.js",
   "author": "Tsutomu Kawamura <cognitom@gmail.com>",
   "license": "MIT",
   "private": true,
-  "devDependencies": {
-    "browser-sync": "^1.9.0",
-    "normalize-css": "^2.3.1",
-    "riot": "^2.0.15"
-  },
-  "scripts": {
-    "build": "riot --ext html ./components dist/riot-bootstrap.js && riot --ext html ./demo demo/demo.js && cp ./node_modules/normalize-css/normalize.css demo/",
-    "start": "riot --ext html -w ./components dist/riot-bootstrap.js & riot --ext html -w ./demo demo/demo.js & browser-sync start --server --files './*.html, demo/*, dist/*'"
-  },
   "dependencies": {
     "riot": "^2.0.15"
+  },
+  "devDependencies": {
+    "browser-sync": "^1.9.0",
+    "browserify": "^9.0.8",
+    "coffee-script": "^1.9.2",
+    "gulp": "^3.8.11",
+    "gulp-concat": "^2.5.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-riot": "^0.2.14",
+    "gulp-uglify": "^1.2.0",
+    "run-sequence": "^1.1.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "scripts": {
+    "build": "gulp",
+    "start": "gulp watch"
   }
 }
