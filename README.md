@@ -13,15 +13,6 @@
 
 - [cognitom.github.io/riot-bootstrap](http://cognitom.github.io/riot-bootstrap)
 
-## TODO:
-
-- ~~Make these work in another tag file~~ Now it works, thanks to [Riot 2.0.15](https://muut.com/riotjs/release-notes.html#2-0-15-em-apr-23-2015-em-)!
-- Rebuilding components for Riot.js
-    - ~~Buttons~~
-    - ~~Button groups~~
-    - ~~Dropdowns~~
-    - Other components
-
 ## Getting started
 
 In short, use the tags as just like HTML: `<btn>`, `<btn-group>`, `<menu>`...etc.
@@ -42,7 +33,7 @@ In short, use the tags as just like HTML: `<btn>`, `<btn-group>`, `<menu>`...etc
 <html>
   <head>
     <title>riot-bootstrap</title>
-    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/normalize/3.0.3/normalize.css">
   </head>
   <body>
     <section>
@@ -50,14 +41,14 @@ In short, use the tags as just like HTML: `<btn>`, `<btn-group>`, `<menu>`...etc
       <btn option="primary">Primary</btn>
       <btn option="success">Success</btn>
     </section>
-    <script src="https://cdn.jsdelivr.net/riot/2.0/riot.js"></script>
+    <script src="//cdn.jsdelivr.net/riot/2.0/riot.js"></script>
     <script src="dist/riot-bootstrap.js"></script>
     <script>riot.mount('*')</script>
   </body>
 </html>
 ```
 
-### 2) Use in tag file
+### 2) Use in tag file (better)
 
 - load [riot.js](https://muut.com/riotjs/)
 - load [normalize.css](http://necolas.github.io/normalize.css/)
@@ -70,11 +61,11 @@ In short, use the tags as just like HTML: `<btn>`, `<btn-group>`, `<menu>`...etc
 <html>
   <head>
     <title>riot-bootstrap</title>
-    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/normalize/3.0.3/normalize.css">
   </head>
   <body>
     <app></app>
-    <script src="https://cdn.jsdelivr.net/riot/2.0/riot.js"></script>
+    <script src="//cdn.jsdelivr.net/riot/2.0/riot.js"></script>
     <script src="dist/riot-bootstrap.js"></script>
     <script src="app.tag"></script>
     <script>riot.mount('app')</script>
@@ -96,128 +87,15 @@ In short, use the tags as just like HTML: `<btn>`, `<btn-group>`, `<menu>`...etc
 </app>
 ```
 
-## Buttons
+## Components
 
-### Button tag
+See [the demo page](http://cognitom.github.io/riot-bootstrap).
 
-Use the `<btn>` elements.
+## TODO:
 
-```html
-<btn>btn</btn>
-```
-
-### Options
-
-Use any of the available button `option` to quickly create a styled button.
-
-```html
-<btn>Default</btn>
-<btn option="primary">Primary</btn>
-<btn option="success">Success</btn>
-<btn option="info">Info</btn>
-<btn option="warning">Warning</btn>
-<btn option="danger">Danger</btn>
-<btn option="link">Link</btn>
-```
-
-### Sizes
-
-Fancy larger or smaller buttons? Set the size attributes for additional sizes: `lg`, `sm`, or `xs`
-
-```html
-<p>
-  <btn option="primary" size="lg">Large button</btn>
-  <btn size="lg">Large button</btn>
-</p>
-<p>
-  <btn option="primary">Default button</btn>
-  <btn>Default button</btn>
-</p>
-<p>
-  <btn option="primary" size="sm">Small button</btn>
-  <btn size="sm">Small button</btn>
-</p>
-<p>
-  <btn option="primary" size="xs">Extra small button</btn>
-  <btn size="xs">Extra small button</btn>
-</p>
-```
-
-## Button groups
-
-Group a series of buttons together on a single line with the button group.
-
-```html
-<btn-group>
-  <btn>Left</btn>
-  <btn>Middle</btn>
-  <btn>Right</btn>
-</btn-group>
-```
-
-## Dropdowns
-
-Toggleable, contextual menu for displaying lists of links.
-
-```html
-<btn-group>
-  <btn toggle="menu">Default <caret /></btn>
-  <menu>
-    <menu-item value="action">Action</menu-item>
-    <menu-item value="another">Another action</menu-item>
-    <menu-item value="something">Something else here</menu-item>
-    <menu-item value="separated">Separated link</menu-item>
-  </menu>
-</btn-group>
-```
-
-### Headers
-
-Add a header to label sections of actions in any dropdown menu.
-
-```html
-<btn-group>
-  <btn toggle="menu">Default <caret /></btn>
-  <menu>
-    <menu-header>Dropdown header</menu-header>
-    <menu-item value="action">Action</menu-item>
-    <menu-item value="another">Another action</menu-item>
-    <menu-item value="something">Something else here</menu-item>
-    <menu-header>Dropdown header</menu-header>
-    <menu-item value="separated">Separated link</menu-item>
-  </menu>
-</btn-group>
-```
-
-### Divider
-
-Add a divider to separate series of links in a dropdown menu.
-
-```html
-<btn-group>
-  <btn toggle="menu">Default <caret /></btn>
-  <menu>
-    <menu-item value="action">Action</menu-item>
-    <menu-item value="another">Another action</menu-item>
-    <menu-item value="something">Something else here</menu-item>
-    <menu-divider></menu-divider>
-    <menu-item value="separated">Separated link</menu-item>
-  </menu>
-</btn-group>
-```
-
-### Split button dropdowns
-
-```html
-<btn-group>
-  <btn>Default</btn>
-  <btn toggle="menu"><caret /></btn>
-  <menu>
-    <menu-item value="action">Action</menu-item>
-    <menu-item value="another">Another action</menu-item>
-    <menu-item value="something">Something else here</menu-item>
-    <menu-divider></menu-divider>
-    <menu-item value="separated">Separated link</menu-item>
-  </menu>
-</btn-group>
-```
+- ~~Make these work in another tag file~~ Now it works, thanks to [Riot 2.0.15](https://muut.com/riotjs/release-notes.html#2-0-15-em-apr-23-2015-em-)!
+- Rebuilding components for Riot.js
+    - ~~Buttons~~
+    - ~~Button groups~~
+    - ~~Dropdowns~~
+    - Other components
