@@ -34,6 +34,7 @@ In short, use the tags as just like HTML: `<btn>`, `<btn-group>`, `<menu>`...etc
 
 - load [riot.js](https://muut.com/riotjs/)
 - load [normalize.css](http://necolas.github.io/normalize.css/)
+- load riot-bootstrap (this library)
 - then, `riot.mount('*')`
 
 ```html
@@ -50,6 +51,7 @@ In short, use the tags as just like HTML: `<btn>`, `<btn-group>`, `<menu>`...etc
       <btn option="success">Success</btn>
     </section>
     <script src="https://cdn.jsdelivr.net/riot/2.0/riot.js"></script>
+    <script src="dist/riot-bootstrap.js"></script>
     <script>riot.mount('*')</script>
   </body>
 </html>
@@ -59,7 +61,8 @@ In short, use the tags as just like HTML: `<btn>`, `<btn-group>`, `<menu>`...etc
 
 - load [riot.js](https://muut.com/riotjs/)
 - load [normalize.css](http://necolas.github.io/normalize.css/)
-- load tag file
+- load riot-bootstrap (this library)
+- load your tag file
 - then, `riot.mount('app')`
 
 ```html
@@ -72,6 +75,7 @@ In short, use the tags as just like HTML: `<btn>`, `<btn-group>`, `<menu>`...etc
   <body>
     <app></app>
     <script src="https://cdn.jsdelivr.net/riot/2.0/riot.js"></script>
+    <script src="dist/riot-bootstrap.js"></script>
     <script src="app.tag"></script>
     <script>riot.mount('app')</script>
   </body>
