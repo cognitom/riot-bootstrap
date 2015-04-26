@@ -22,6 +22,76 @@
     - ~~Dropdowns~~
     - Other components
 
+## Getting started
+
+In short, use the tags as just like HTML: `<btn>`, `<btn-group>`, `<menu>`...etc.
+
+```html
+<btn>Your Button</btn>
+```
+
+### 1) Use directly in HTML file
+
+- load [riot.js](https://muut.com/riotjs/)
+- load [normalize.css](http://necolas.github.io/normalize.css/)
+- then, `riot.mount('*')`
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>riot-bootstrap</title>
+    <link rel="stylesheet" href="normalize.css">
+  </head>
+  <body>
+    <section>
+      <btn>Default</btn>
+      <btn option="primary">Primary</btn>
+      <btn option="success">Success</btn>
+    </section>
+    <script src="https://cdn.jsdelivr.net/riot/2.0/riot.js"></script>
+    <script>riot.mount('*')</script>
+  </body>
+</html>
+```
+
+### 2) Use in tag file
+
+- load [riot.js](https://muut.com/riotjs/)
+- load [normalize.css](http://necolas.github.io/normalize.css/)
+- load tag file
+- then, `riot.mount('app')`
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>riot-bootstrap</title>
+    <link rel="stylesheet" href="normalize.css">
+  </head>
+  <body>
+    <app></app>
+    <script src="https://cdn.jsdelivr.net/riot/2.0/riot.js"></script>
+    <script src="app.tag"></script>
+    <script>riot.mount('app')</script>
+  </body>
+</html>
+```
+
+```html
+// app.tag
+<app>
+  <section>
+    <btn onclick={ click }>Say 'Hi!'</btn>
+  </section>
+  <script>
+    click (e) {
+      alert('Hi!')
+    }
+  </script>
+</app>
+```
+
 ## Buttons
 
 ### Button tag
