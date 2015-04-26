@@ -21,8 +21,8 @@ riot.tag('menu-divider', '', 'menu-divider { display: block; height: 1px; margin
 
 });
 
-riot.tag('menu-header', '', 'menu-header { display: block; padding: 3px 20px; font-size: 12px; line-height: 1.42857143; color: #777; white-space: nowrap; }', function(opts) {
-  
+riot.tag('menu-header', '<yield></yield>', 'menu-header { display: block; padding: 3px 20px; font-size: 12px; line-height: 1.42857143; color: #777; white-space: nowrap; }', function(opts) {
+
 
 });
 
