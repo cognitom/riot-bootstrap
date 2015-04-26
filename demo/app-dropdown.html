@@ -1,0 +1,121 @@
+<app-dropdown>
+
+  <h2>Dropdowns</h2>
+
+  <p>Toggleable, contextual menu for displaying lists of links.</p>
+
+  <section>
+    <btn-group>
+      <btn toggle="menu">Default <caret /></btn>
+      <menu>
+        <menu-item value="action">Action</menu-item>
+        <menu-item value="another">Another action</menu-item>
+        <menu-item value="something">Something else here</menu-item>
+        <menu-item value="separated">Separated link</menu-item>
+      </menu>
+    </btn-group>
+
+    <btn-group>
+      <btn toggle="menu" option="primary">Primary <caret /></btn>
+      <menu>
+        <menu-item value="action">Action</menu-item>
+        <menu-item value="another">Another action</menu-item>
+        <menu-item value="something">Something else here</menu-item>
+        <menu-item value="separated">Separated link</menu-item>
+      </menu>
+    </btn-group>
+  </section>
+
+  <h3>Headers</h3>
+
+  <p>Add a header to label sections of actions in any dropdown menu.</p>
+
+  <section>
+    <btn-group>
+      <btn toggle="menu">Default <caret /></btn>
+      <menu>
+        <menu-header>Dropdown header</menu-header>
+        <menu-item value="action">Action</menu-item>
+        <menu-item value="another">Another action</menu-item>
+        <menu-item value="something">Something else here</menu-item>
+        <menu-header>Dropdown header</menu-header>
+        <menu-item value="separated">Separated link</menu-item>
+      </menu>
+    </btn-group>
+
+    <btn-group>
+      <btn toggle="menu" option="primary">Primary <caret /></btn>
+      <menu>
+        <menu-header>Dropdown header</menu-header>
+        <menu-item value="action">Action</menu-item>
+        <menu-item value="another">Another action</menu-item>
+        <menu-item value="something">Something else here</menu-item>
+        <menu-header>Dropdown header</menu-header>
+        <menu-item value="separated">Separated link</menu-item>
+      </menu>
+    </btn-group>
+  </section>
+
+  <h3>Divider</h3>
+
+  <p>Add a divider to separate series of links in a dropdown menu.</p>
+
+  <section>
+    <btn-group>
+      <btn toggle="menu">Default <caret /></btn>
+      <menu>
+        <menu-item value="action">Action</menu-item>
+        <menu-item value="another">Another action</menu-item>
+        <menu-item value="something">Something else here</menu-item>
+        <menu-divider></menu-divider>
+        <menu-item value="separated">Separated link</menu-item>
+      </menu>
+    </btn-group>
+
+    <btn-group>
+      <btn toggle="menu" option="primary">Primary <caret /></btn>
+      <menu>
+        <menu-item value="action">Action</menu-item>
+        <menu-item value="another">Another action</menu-item>
+        <menu-item value="something">Something else here</menu-item>
+        <menu-divider></menu-divider>
+        <menu-item value="separated">Separated link</menu-item>
+      </menu>
+    </btn-group>
+  </section>
+
+  <h3>Split button dropdowns</h3>
+
+  <section>
+    <btn-group>
+      <btn>Default</btn>
+      <btn toggle="menu"><caret /></btn>
+      <menu>
+        <menu-item value="action">Action</menu-item>
+        <menu-item value="another">Another action</menu-item>
+        <menu-item value="something">Something else here</menu-item>
+        <menu-divider></menu-divider>
+        <menu-item value="separated">Separated link</menu-item>
+      </menu>
+    </btn-group>
+
+    <btn-group>
+      <btn option="primary">Primary</btn>
+      <btn toggle="menu" option="primary"><caret /></btn>
+      <menu>
+        <menu-item value="action">Action</menu-item>
+        <menu-item value="another">Another action</menu-item>
+        <menu-item value="something">Something else here</menu-item>
+        <menu-divider></menu-divider>
+        <menu-item value="separated">Separated link</menu-item>
+      </menu>
+    </btn-group>
+  </section>
+
+  <style scoped>
+    :scope {
+      display: block;
+    }
+  </style>
+
+</app-dropdown>
