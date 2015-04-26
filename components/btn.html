@@ -1,26 +1,18 @@
 <btn>
+
   <button
     type="button"
     disabled={ opts.disabled }
     data-option={ opts.option }
     data-size={ opts.size }
     onclick={ click }
-    ></button>
+    ><yield/></button>
 
   <script>
-    var parent = this.root.parentElement.tag
-    var content = opts.content
-
     click (e) {
-      if (parent && opts.toggle) parent.trigger('inner-btn-toggle')
+      if (this.parent && opts.toggle) this.parent.trigger('inner-btn-toggle')
       if (opts.onclick) opts.onclick(e)
     }
-    setContent () {
-      this.root.firstChild.innerHTML = content
-    }
-    if (!content) content = this.root.innerHTML
-    this.root.innerHTML = ''
-    this.one('mount', this.setContent)
   </script>
 
   <style scoped>
@@ -137,4 +129,5 @@
       border-radius: 3px;
     }
   </style>
+
 </btn>

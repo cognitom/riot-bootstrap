@@ -1,8 +1,10 @@
 <menu-item>
-  <script>
-    var menu = this.root.parentElement.tag
 
+  <yield/>
+
+  <script>
     click (e) {
+      var menu = this.parent
       menu.select(opts.value || this.root.innerText)
     }
     addEventListners (e) {
@@ -36,4 +38,5 @@
       background-color: #f5f5f5;
     }
   </style>
+
 </menu-item>

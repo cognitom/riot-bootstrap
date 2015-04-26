@@ -1,9 +1,9 @@
 <menu>
-  <script>
-    var parent = this.root.parentElement.tag
-    var opened = false
 
-    this.root.tag = this // needed for communicate with child tags
+  <yield/>
+
+  <script>
+    var opened = false
 
     open (e) {
       if (!opened) {
@@ -29,7 +29,7 @@
       document.removeEventListener('click', this.close)
     }
 
-    if (parent) parent.on('inner-btn-toggle', this.open)
+    if (this.parent) this.parent.on('inner-btn-toggle', this.open)
   </script>
 
   <style scoped>
@@ -54,4 +54,5 @@
       box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
     }
   </style>
+
 </menu>
