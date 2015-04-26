@@ -15,7 +15,7 @@
 
 ## TODO:
 
-- Make these work in another tag file
+- ~~Make these work in another tag file~~ Now it works, thanks to [Riot 2.0.15](https://muut.com/riotjs/release-notes.html#2-0-15-em-apr-23-2015-em-)!
 - Rebuilding components for Riot.js
     - ~~Buttons~~
     - ~~Button groups~~
@@ -147,4 +147,3 @@ Add a divider to separate series of links in a dropdown menu.
   </menu>
 </btn-group>
 ```
-
