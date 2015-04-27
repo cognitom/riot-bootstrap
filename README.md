@@ -2,8 +2,6 @@
 
 [WIP] Bootstrap-like Components for Riot.js
 
-**CURRENTLY EXPERIMENTAL**
-
 - **Readable**: no more cluttered class names!
 - **Stand-alone**: independent from Bootstrap
 - **Modular**: one file, one component
@@ -67,14 +65,14 @@ In short, use the tags as just like HTML: `<btn>`, `<btn-group>`, `<menu>`...etc
     <app></app>
     <script src="//cdn.jsdelivr.net/riot/2.0/riot.js"></script>
     <script src="dist/riot-bootstrap.js"></script>
-    <script src="app.tag"></script>
+    <script src="app.js"></script>
     <script>riot.mount('app')</script>
   </body>
 </html>
 ```
 
 ```html
-// app.tag
+// app.html
 <app>
   <section>
     <btn onclick={ click }>Say 'Hi!'</btn>
@@ -87,15 +85,77 @@ In short, use the tags as just like HTML: `<btn>`, `<btn-group>`, `<menu>`...etc
 </app>
 ```
 
+### 3) Use with Browserify (best)
+
+- Install `riot-bootstrap` via NPM.
+- Create the main script.
+- Prepare your tag files.
+- Browserify with [riotify](https://github.com/jhthorsen/riotify).
+- Load the browserified script into HTML.
+
+```bash
+$ npm install --save riot-bootstrap
+```
+
+```javascript
+// app.js
+var riot = require 'riot'
+require 'riot-bootstrap'
+require './app.html' // and other components
+riot.mount('app')
+```
+
+```html
+// app.html
+<app>
+  <section>
+    <btn onclick={ click }>Say 'Hi!'</btn>
+  </section>
+  <script>
+    click (e) {
+      alert('Hi!')
+    }
+  </script>
+</app>
+```
+
+```bash
+$ browserify -t [ riotify --ext html ] app.js
+```
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>riot-bootstrap</title>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/normalize/3.0.3/normalize.css">
+  </head>
+  <body>
+    <app></app>
+    <script src="app.js"></script>
+  </body>
+</html>
+```
+
+
 ## Components
 
 See [the demo page](http://cognitom.github.io/riot-bootstrap).
 
+## History
+
+- v0.0.1: Buttons, button groups, dropdowns
+- v0.1.0: Now transclusion is supported, thanks to [Riot 2.0.15](https://muut.com/riotjs/release-notes.html#2-0-15-em-apr-23-2015-em-)
+- v0.1.1: Radio sroups
+- v0.1.2: Support Browserify and publish to NPM
+
 ## TODO:
 
-- ~~Make these work in another tag file~~ Now it works, thanks to [Riot 2.0.15](https://muut.com/riotjs/release-notes.html#2-0-15-em-apr-23-2015-em-)!
-- Rebuilding components for Riot.js
-    - ~~Buttons~~
-    - ~~Button groups~~
-    - ~~Dropdowns~~
-    - Other components
+Rebuilding Bootstrap components for Riot.js
+
+- Input groups
+- Breadcrumbs
+- Badges
+- Panels
+- Progress bars
+- Anything else? Send us a new issue or PR!
