@@ -1,0 +1,44 @@
+<app-radio-group>
+
+  <h2>Radio groups</h2>
+
+  <p>Group a series of radio buttons together on a single line. </p>
+
+  <section>
+    <radio-group value={ position } onchange={ change }>
+      <radio value="first">First</radio>
+      <radio value="second">Second</radio>
+      <radio value="third">Third</radio>
+    </radio-group>
+    <p class="comment">Your selection is <strong>{ position }</strong>.</p>
+  </section>
+  
+  <highlight>
+    &lt;radio-group value=&#123; position &#125; onchange=&#123; change &#125;&gt;<br>
+    &nbsp;&lt;radio value="first"&gt;First&lt;/radio&gt;<br>
+    &nbsp;&lt;radio value="second"&gt;Second&lt;/radio&gt;<br>
+    &nbsp;&lt;radio value="third"&gt;Third&lt;/radio&gt;<br>
+    &lt;/radio-group&gt;
+  </highlight>
+
+  <script>
+    this.position = 'first'
+
+    change (value) {
+      this.position = value
+      this.update()
+    }
+  </script>
+
+  <style scoped>
+    :scope {
+      display: block;
+    }
+    .comment {
+      margin: .5em 0 0;
+      color: #999;
+      font-size: 95%;
+    }
+  </style>
+
+</app-radio-group>
