@@ -75,3 +75,32 @@ riot.tag('menu', '<yield></yield>', 'menu { position: absolute; top: 100%; left:
     if (this.parent) this.parent.on('inner-btn-toggle', this.open)
   
 });
+
+riot.tag('radio-group', '<yield></yield>', 'radio-group { position: relative; display: inline-block; vertical-align: middle; } radio-group radio { position: relative; float: left; } radio-group radio + radio { margin-left: -1px; } radio-group radio[toggle]:not(:first-child) > * { padding-right: 8px; padding-left: 8px; } radio-group > radio:hover,radio-group > radio:focus,radio-group > radio:active { z-index: 2; } radio-group > radio:not(:first-child):not(:last-child):not([toggle]) > * { border-radius: 0; } radio-group > radio:first-child { margin-left: 0; } radio-group > radio:first-child:not(:last-child):not([toggle]) > * { border-top-right-radius: 0; border-bottom-right-radius: 0; } radio-group > radio:last-child:not(:first-child) > *,radio-group > radio:not(:first-child)[toggle] > * { border-top-left-radius: 0; border-bottom-left-radius: 0; }', function(opts) {
+    this.value = opts.value
+
+    this.set = function(value) {
+      this.value = value
+      this.trigger('change', value)
+      if (opts.onchange) opts.onchange(value)
+    }.bind(this);
+  
+});
+
+riot.tag('radio', '<button type="button" __disabled="{ opts.disabled }" data-selected="{ selected ? \'yes\' : \'no\' }" data-size="{ opts.size }" onclick="{ click }" ><input type="radio" __checked="{ selected }" onclick="{ click }"> <yield></yield></button>', 'radio button { display: inline-block; padding: 6px 12px; margin-bottom: 0; font-size: 14px; font-weight: normal; line-height: 1.42857143; text-align: center; white-space: nowrap; vertical-align: middle; cursor: pointer; background-image: none; border: 1px solid transparent; border-radius: 4px; } radio button:focus { outline: thin dotted; outline: 5px auto -webkit-focus-ring-color; outline-offset: -2px; } radio button:hover,radio button:focus { color: #333; text-decoration: none; } radio button:active { background-image: none; outline: 0; box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125); } radio button[disabled] { pointer-events: none; cursor: not-allowed; box-shadow: none; opacity: .65; } radio button { color: #333; background-color: #fff; border-color: #ccc } radio button:hover,radio button:focus,radio button:active,radio button[data-selected="yes"] { color: #333; background-color: #e6e6e6; border-color: #adadad } radio button[data-size="lg"] { padding: 10px 16px; font-size: 18px; line-height: 1.3333333; border-radius: 6px; } radio button[data-size="sm"] { padding: 5px 10px; font-size: 12px; line-height: 1.5; border-radius: 3px; } radio button[data-size="xs"] { padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px; }', function(opts) {
+    this.selected = (opts.value == this.parent.value)
+
+    this.check = function() {
+      this.selected = (opts.value == this.parent.value)
+      this.update()
+    }.bind(this);
+
+    this.click = function(e) {
+      if (this.selected) return
+      if (this.parent && this.parent.set) this.parent.set(opts.value || this.root.innerText)
+      else this.selected = true
+    }.bind(this);
+
+    this.parent.on('change', this.check)
+  
+});

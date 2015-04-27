@@ -14,6 +14,7 @@
   <app-btn></app-btn>
   <app-btn-group></app-btn-group>
   <app-dropdown></app-dropdown>
+  <app-radio-group></app-radio-group>
 
   <footer>
     <p>
@@ -44,11 +45,8 @@
       padding: 2em;
     }
 
-    article,
-    app-btn,
-    app-btn-group,
-    app-dropdown {
-      padding: 2em 2em;
+    :scope > *:not(header):not(footer) {
+      padding: 2em;
       border-bottom: 1px solid #eee;
     }
 
@@ -69,7 +67,6 @@
     }
 
     footer {
-      margin-top: 2em;
       font-size: 90%;
       line-height: 1.4em;
       color: #999;
