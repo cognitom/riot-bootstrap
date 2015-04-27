@@ -3,8 +3,7 @@
  * Copyright 2015 Tsutomu Kawamura.
  * Licensed under MIT
  */
-;(function(window) {
-var riot = window ? window.riot : require('riot');
+if (!window.riot) var riot = require('riot');
 riot.tag('btn-group', '<yield></yield>', 'btn-group { position: relative; display: inline-block; vertical-align: middle; } btn-group btn { position: relative; float: left; } btn-group btn + btn { margin-left: -1px; } btn-group btn[toggle]:not(:first-child) > * { padding-right: 8px; padding-left: 8px; } btn-group > btn:hover,btn-group > btn:focus,btn-group > btn:active { z-index: 2; } btn-group > btn:not(:first-child):not(:last-child):not([toggle]) > * { border-radius: 0; } btn-group > btn:first-child { margin-left: 0; } btn-group > btn:first-child:not(:last-child):not([toggle]) > * { border-top-right-radius: 0; border-bottom-right-radius: 0; } btn-group > btn:last-child:not(:first-child) > *,btn-group > btn:not(:first-child)[toggle] > * { border-top-left-radius: 0; border-bottom-left-radius: 0; }', function(opts) {
 
 
@@ -111,5 +110,3 @@ riot.tag('radio', '<button type="button" __disabled="{ opts.disabled }" data-sel
     this.parent.on('change', this.check)
   
 });
-
-})(typeof window != 'undefined' ? window : undefined);

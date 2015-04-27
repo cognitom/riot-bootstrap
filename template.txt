@@ -3,7 +3,5 @@
  * Copyright 2015 Tsutomu Kawamura.
  * Licensed under MIT
  */
-;(function(window) {
-var riot = window ? window.riot : require('riot');
+if (!window.riot) var riot = require('riot');
 <%= contents %>
-})(typeof window != 'undefined' ? window : undefined);
