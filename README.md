@@ -148,7 +148,7 @@ See [the demo page](http://cognitom.github.io/riot-bootstrap).
 - v0.1.0: Now transclusion is supported, thanks to [Riot 2.0.15](https://muut.com/riotjs/release-notes.html#2-0-15-em-apr-23-2015-em-)
 - v0.1.1: Radio sroups
 - v0.1.2: Support Browserify and publish to NPM
-- v0.1.4: Fix: CommonJS issue
+- v0.1.5: Fix: CommonJS issue
 
 ## TODO:
 
