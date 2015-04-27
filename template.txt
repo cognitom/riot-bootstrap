@@ -1,0 +1,9 @@
+/*!
+ * Riot Bootstrap (http://cognitom.github.io/riot-bootstrap/)
+ * Copyright 2015 Tsutomu Kawamura.
+ * Licensed under MIT
+ */
+;(function() {
+  if (!window) var riot = require('riot');
+  <%= contents %>
+})();

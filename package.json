@@ -1,6 +1,6 @@
 {
   "name": "riot-bootstrap",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Bootstrap-like Components for Riot.js",
   "homepage": "https://github.com/cognitom/riot-bootstrap",
   "repository": {
@@ -14,20 +14,16 @@
   },
   "devDependencies": {
     "browser-sync": "^1.9.0",
-    "browserify": "^9.0.8",
     "coffee-script": "^1.9.2",
     "gulp": "^3.8.11",
     "gulp-concat": "^2.5.2",
-    "gulp-file": "^0.2.0",
-    "gulp-foreach": "^0.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-riot": "^0.2.14",
     "gulp-uglify": "^1.2.0",
-    "run-sequence": "^1.1.0",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "gulp-wrap": "^0.11.0",
+    "run-sequence": "^1.1.0"
   },
-  "main": "index.js",
+  "main": "dist/riot-bootstrap.js",
   "scripts": {
     "build": "gulp",
     "start": "gulp watch"
