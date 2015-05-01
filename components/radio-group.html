@@ -7,9 +7,37 @@
 
     set (value) {
       this.value = value
+      this.root.value = value
       this.trigger('change', value)
-      if (opts.onchange) opts.onchange(value)
+      if (opts.onchange){
+        opts.onchange()
+        this.updateCaller(opts.onchange)
+      }
     }
+
+    /** SCOPE EMULATION **/
+    updateCaller (f) {
+      var keys = []
+      if (this.parent._ownPropKeys) keys = this.parent._ownPropKeys
+        else for (var k in this.parent) keys.push(k)
+      for (var i = 0; i < keys.length; i++)
+        if (this.parent[keys[i]] === f) {
+          this.parent.update()
+          return
+        }
+      if (this.parent.updateCaller) this.parent.updateCaller(f)
+    }
+    initProperties () {
+      this._ownPropKeys = []
+      for (var k in this) if (this[k]) this._ownPropKeys[k] = true
+    }
+    loadParentProperties () {
+      for (var k in this.parent)
+        if (!this._ownPropKeys[k])
+          this[k] = this.parent[k]
+    }
+    this.initProperties()
+    this.on('update', this.loadParentProperties)
   </script>
 
   <style scoped>

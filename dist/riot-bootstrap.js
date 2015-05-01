@@ -5,15 +5,65 @@
  */
 if (!window.riot) var riot = require('riot');
 riot.tag('btn-group', '<yield></yield>', 'btn-group { position: relative; display: inline-block; vertical-align: middle; } btn-group btn { position: relative; float: left; } btn-group btn + btn { margin-left: -1px; } btn-group btn[toggle]:not(:first-child) > * { padding-right: 8px; padding-left: 8px; } btn-group > btn:hover,btn-group > btn:focus,btn-group > btn:active { z-index: 2; } btn-group > btn:not(:first-child):not(:last-child):not([toggle]) > * { border-radius: 0; } btn-group > btn:first-child { margin-left: 0; } btn-group > btn:first-child:not(:last-child):not([toggle]) > * { border-top-right-radius: 0; border-bottom-right-radius: 0; } btn-group > btn:last-child:not(:first-child) > *,btn-group > btn:not(:first-child)[toggle] > * { border-top-left-radius: 0; border-bottom-left-radius: 0; }', function(opts) {
-
-
+    
+    this.updateCaller = function(f) {
+      var keys = []
+      if (this.parent._ownPropKeys) keys = this.parent._ownPropKeys
+        else for (var k in this.parent) keys.push(k)
+      for (var i = 0; i < keys.length; i++)
+        if (this.parent[keys[i]] === f) {
+          this.parent.update()
+          return
+        }
+      if (this.parent && this.parent.updateCaller) this.parent.updateCaller(f)
+    }.bind(this);
+    this.initProperties = function() {
+      this._ownPropKeys = []
+      for (var k in this) if (this[k]) this._ownPropKeys[k] = true
+    }.bind(this);
+    this.loadParentProperties = function() {
+      for (var k in this.parent)
+        if (!this._ownPropKeys[k])
+          this[k] = this.parent[k]
+    }.bind(this);
+    this.initProperties()
+    this.on('update', this.loadParentProperties)
+  
 });
 
-riot.tag('btn', '<button type="button" __disabled="{ opts.disabled }" data-option="{ opts.option }" data-size="{ opts.size }" onclick="{ click }" ><yield></yield></button>', 'btn button { display: inline-block; padding: 6px 12px; margin-bottom: 0; font-size: 14px; font-weight: normal; line-height: 1.42857143; text-align: center; white-space: nowrap; vertical-align: middle; cursor: pointer; background-image: none; border: 1px solid transparent; border-radius: 4px; } btn button:focus { outline: thin dotted; outline: 5px auto -webkit-focus-ring-color; outline-offset: -2px; } btn button:hover,btn button:focus { color: #333; text-decoration: none; } btn button:active { background-image: none; outline: 0; box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125); } btn button[disabled] { pointer-events: none; cursor: not-allowed; box-shadow: none; opacity: .65; } btn button { color: #333; background-color: #fff; border-color: #ccc } btn button:hover,btn button:focus,btn button:active { color: #333; background-color: #e6e6e6; border-color: #adadad } btn button[data-option="primary"] { color: #fff; background-color: #337ab7; border-color: #2e6da4 } btn button[data-option="primary"]:hover,btn button[data-option="primary"]:focus,btn button[data-option="primary"]:active { color: #fff; background-color: #286090; border-color: #204d74 } btn button[data-option="success"] { color: #fff; background-color: #5cb85c; border-color: #4cae4c } btn button[data-option="success"]:hover,btn button[data-option="success"]:focus,btn button[data-option="success"]:active { color: #fff; background-color: #449d44; border-color: #398439 } btn button[data-option="info"] { color: #fff; background-color: #5bc0de; border-color: #46b8da } btn button[data-option="info"]:hover,btn button[data-option="info"]:focus,btn button[data-option="info"]:active { color: #fff; background-color: #31b0d5; border-color: #269abc } btn button[data-option="warning"] { color: #fff; background-color: #f0ad4e; border-color: #f0ad4e } btn button[data-option="warning"]:hover,btn button[data-option="warning"]:focus,btn button[data-option="warning"]:active { color: #fff; background-color: #ec971f; border-color: #d58512 } btn button[data-option="danger"] { color: #fff; background-color: #d9534f; border-color: #d43f3a } btn button[data-option="danger"]:hover,btn button[data-option="danger"]:focus,btn button[data-option="danger"]:active { color: #fff; background-color: #c9302c; border-color: #ac2925 } btn button[data-option="link"] { font-weight: normal; color: #337ab7; border-radius: 0; background-color: transparent; border-color: transparent; box-shadow: none; } btn button[data-option="link"]:hover,btn button[data-option="link"]:focus { color: #23527c; text-decoration: underline; } btn button[data-size="lg"] { padding: 10px 16px; font-size: 18px; line-height: 1.3333333; border-radius: 6px; } btn button[data-size="sm"] { padding: 5px 10px; font-size: 12px; line-height: 1.5; border-radius: 3px; } btn button[data-size="xs"] { padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px; }', function(opts) {
-    this.click = function(e) {
+riot.tag('btn', '<button type="button" __disabled="{ disabled }" data-option="{ opts.option }" data-size="{ opts.size }" onclick="{ push }" ><yield></yield></button>', 'btn button { display: inline-block; padding: 6px 12px; margin-bottom: 0; font-size: 14px; font-weight: normal; line-height: 1.42857143; text-align: center; white-space: nowrap; vertical-align: middle; cursor: pointer; background-image: none; border: 1px solid transparent; border-radius: 4px; } btn button:focus { outline: thin dotted; outline: 5px auto -webkit-focus-ring-color; outline-offset: -2px; } btn button:hover,btn button:focus { color: #333; text-decoration: none; } btn button:active { background-image: none; outline: 0; box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125); } btn button[disabled] { pointer-events: none; cursor: not-allowed; box-shadow: none; opacity: .65; } btn button { color: #333; background-color: #fff; border-color: #ccc } btn button:hover,btn button:focus,btn button:active { color: #333; background-color: #e6e6e6; border-color: #adadad } btn button[data-option="primary"] { color: #fff; background-color: #337ab7; border-color: #2e6da4 } btn button[data-option="primary"]:hover,btn button[data-option="primary"]:focus,btn button[data-option="primary"]:active { color: #fff; background-color: #286090; border-color: #204d74 } btn button[data-option="success"] { color: #fff; background-color: #5cb85c; border-color: #4cae4c } btn button[data-option="success"]:hover,btn button[data-option="success"]:focus,btn button[data-option="success"]:active { color: #fff; background-color: #449d44; border-color: #398439 } btn button[data-option="info"] { color: #fff; background-color: #5bc0de; border-color: #46b8da } btn button[data-option="info"]:hover,btn button[data-option="info"]:focus,btn button[data-option="info"]:active { color: #fff; background-color: #31b0d5; border-color: #269abc } btn button[data-option="warning"] { color: #fff; background-color: #f0ad4e; border-color: #f0ad4e } btn button[data-option="warning"]:hover,btn button[data-option="warning"]:focus,btn button[data-option="warning"]:active { color: #fff; background-color: #ec971f; border-color: #d58512 } btn button[data-option="danger"] { color: #fff; background-color: #d9534f; border-color: #d43f3a } btn button[data-option="danger"]:hover,btn button[data-option="danger"]:focus,btn button[data-option="danger"]:active { color: #fff; background-color: #c9302c; border-color: #ac2925 } btn button[data-option="link"] { font-weight: normal; color: #337ab7; border-radius: 0; background-color: transparent; border-color: transparent; box-shadow: none; } btn button[data-option="link"]:hover,btn button[data-option="link"]:focus { color: #23527c; text-decoration: underline; } btn button[data-size="lg"] { padding: 10px 16px; font-size: 18px; line-height: 1.3333333; border-radius: 6px; } btn button[data-size="sm"] { padding: 5px 10px; font-size: 12px; line-height: 1.5; border-radius: 3px; } btn button[data-size="xs"] { padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px; }', function(opts) {
+    this.disabled = (opts.disabled !== undefined && opts.disabled !== 'no')
+
+    this.push = function(e) {
+      if (this.disabled) return
       if (this.parent && opts.toggle) this.parent.trigger('inner-btn-toggle')
-      if (opts.onclick) opts.onclick(e)
+      if (opts.onpush){
+        opts.onpush(e)
+        this.updateCaller(opts.onpush)
+      }
     }.bind(this);
+    this.updateCaller = function(f) {
+      var keys = []
+      if (this.parent._ownPropKeys) keys = this.parent._ownPropKeys
+        else for (var k in this.parent) keys.push(k)
+      for (var i = 0; i < keys.length; i++)
+        if (this.parent[keys[i]] === f) {
+          this.parent.update()
+          return
+        }
+      if (this.parent.updateCaller) this.parent.updateCaller(f)
+    }.bind(this);
+    this.initProperties = function() {
+      this._ownPropKeys = []
+      for (var k in this) if (this[k]) this._ownPropKeys[k] = true
+    }.bind(this);
+    this.loadParentProperties = function() {
+      for (var k in this.parent)
+        if (!this._ownPropKeys[k])
+          this[k] = this.parent[k]
+    }.bind(this);
+    this.initProperties()
+    this.on('update', this.loadParentProperties)
   
 });
 
@@ -87,9 +137,37 @@ riot.tag('radio-group', '<yield></yield>', 'radio-group { position: relative; di
 
     this.set = function(value) {
       this.value = value
+      this.root.value = value
       this.trigger('change', value)
-      if (opts.onchange) opts.onchange(value)
+      if (opts.onchange){
+        opts.onchange()
+        this.updateCaller(opts.onchange)
+      }
     }.bind(this);
+
+    
+    this.updateCaller = function(f) {
+      var keys = []
+      if (this.parent._ownPropKeys) keys = this.parent._ownPropKeys
+        else for (var k in this.parent) keys.push(k)
+      for (var i = 0; i < keys.length; i++)
+        if (this.parent[keys[i]] === f) {
+          this.parent.update()
+          return
+        }
+      if (this.parent.updateCaller) this.parent.updateCaller(f)
+    }.bind(this);
+    this.initProperties = function() {
+      this._ownPropKeys = []
+      for (var k in this) if (this[k]) this._ownPropKeys[k] = true
+    }.bind(this);
+    this.loadParentProperties = function() {
+      for (var k in this.parent)
+        if (!this._ownPropKeys[k])
+          this[k] = this.parent[k]
+    }.bind(this);
+    this.initProperties()
+    this.on('update', this.loadParentProperties)
   
 });
 
