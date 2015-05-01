@@ -19,6 +19,8 @@
         this.updateCaller(opts.onpush)
       }
     }
+
+    /** SCOPE EMULATION **/
     updateCaller (f) {
       var keys = []
       if (this.parent._ownPropKeys) keys = this.parent._ownPropKeys

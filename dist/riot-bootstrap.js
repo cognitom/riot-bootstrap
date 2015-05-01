@@ -42,6 +42,8 @@ riot.tag('btn', '<button type="button" __disabled="{ disabled }" data-option="{ 
         this.updateCaller(opts.onpush)
       }
     }.bind(this);
+
+    
     this.updateCaller = function(f) {
       var keys = []
       if (this.parent._ownPropKeys) keys = this.parent._ownPropKeys
