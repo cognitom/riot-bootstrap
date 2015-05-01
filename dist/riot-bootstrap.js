@@ -8,8 +8,7 @@ riot.tag('btn-group', '<yield></yield>', 'btn-group { position: relative; displa
     
     this.updateCaller = function(f) {
       var keys = []
-      if (this.parent._ownPropKeys) keys = this.parent._ownPropKeys
-        else for (var k in this.parent) keys.push(k)
+      for (var k in this.parent._ownPropKeys || this.parent) keys.push(k)
       for (var i = 0; i < keys.length; i++)
         if (this.parent[keys[i]] === f) {
           this.parent.update()
@@ -46,8 +45,7 @@ riot.tag('btn', '<button type="button" __disabled="{ disabled }" data-option="{ 
     
     this.updateCaller = function(f) {
       var keys = []
-      if (this.parent._ownPropKeys) keys = this.parent._ownPropKeys
-        else for (var k in this.parent) keys.push(k)
+      for (var k in this.parent._ownPropKeys || this.parent) keys.push(k)
       for (var i = 0; i < keys.length; i++)
         if (this.parent[keys[i]] === f) {
           this.parent.update()
@@ -150,8 +148,7 @@ riot.tag('radio-group', '<yield></yield>', 'radio-group { position: relative; di
     
     this.updateCaller = function(f) {
       var keys = []
-      if (this.parent._ownPropKeys) keys = this.parent._ownPropKeys
-        else for (var k in this.parent) keys.push(k)
+      for (var k in this.parent._ownPropKeys || this.parent) keys.push(k)
       for (var i = 0; i < keys.length; i++)
         if (this.parent[keys[i]] === f) {
           this.parent.update()
