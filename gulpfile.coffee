@@ -42,6 +42,6 @@ gulp.task 'watch', ->
     notify: false
     server: baseDir: './'
   o = debounceDelay: 3000
-  gulp.watch [$.tagsSrc], o, ['build', 'index']
+  gulp.watch [$.tagsSrc], o, ['build']
   gulp.watch [$.demoSrc], o, ['demo']
   gulp.watch $.watch, o, reload
