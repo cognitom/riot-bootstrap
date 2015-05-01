@@ -149,6 +149,7 @@ See [the demo page](http://cognitom.github.io/riot-bootstrap).
 - v0.1.1: Radio sroups
 - v0.1.2: Support Browserify and publish to NPM
 - v0.1.7: Fix: CommonJS issue
+- v0.2.0: Scope emulation. Related to https://github.com/muut/riotjs/issues/662
 
 ## TODO:
 
