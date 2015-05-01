@@ -6,19 +6,34 @@
 
   <section>
     <btn-group>
-      <btn>Left</btn>
-      <btn>Middle</btn>
-      <btn>Right</btn>
+      <btn onpush={ pushL }>Left</btn>
+      <btn onpush={ pushM }>Middle</btn>
+      <btn onpush={ pushR }>Right</btn>
     </btn-group>
+    <p class="comment">{ comment }</p>
   </section>
-  
+
   <highlight>
     &lt;btn-group&gt;<br>
-    &nbsp;&lt;btn&gt;Left&lt;/btn&gt;<br>
-    &nbsp;&lt;btn&gt;Middle&lt;/btn&gt;<br>
-    &nbsp;&lt;btn&gt;Right&lt;/btn&gt;<br>
+    &nbsp;&lt;btn onpush=&#123; pushL &#125;&gt;Left&lt;/btn&gt;<br>
+    &nbsp;&lt;btn onpush=&#123; pushM &#125;&gt;Middle&lt;/btn&gt;<br>
+    &nbsp;&lt;btn onpush=&#123; pushR &#125;&gt;Right&lt;/btn&gt;<br>
     &lt;/btn-group&gt;
   </highlight>
+
+  <script>
+    this.comment = 'Click me!'
+
+    pushL (e) {
+      this.comment = 'Left button was clicked.'
+    }
+    pushM (e) {
+      this.comment = 'Middle button was clicked.'
+    }
+    pushR (e) {
+      this.comment = 'Right button was clicked.'
+    }
+  </script>
 
   <style scoped>
     :scope {

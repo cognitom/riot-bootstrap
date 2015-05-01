@@ -27,7 +27,6 @@
     :scope {
       display: block;
     }
-
     code {
       font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
     }
@@ -38,22 +37,18 @@
       background-color: #f9f2f4;
       border-radius: 4px;
     }
-
     header {
       background: #333;
       color: white;
       padding: 2em;
     }
-
     :scope > *:not(header):not(footer) {
       padding: 2em;
       border-bottom: 1px solid #eee;
     }
-
     h2 {
       margin: 0;
     }
-
     section {
       border: 1px solid #ddd;
       padding: 1em;
@@ -65,7 +60,11 @@
       border-top-left-radius: 0;
       border-top-right-radius: 0;
     }
-
+    section p.comment {
+      margin: .5em 0 0;
+      color: #999;
+      font-size: 95%;
+    }
     footer {
       font-size: 90%;
       line-height: 1.4em;

@@ -2,14 +2,25 @@
 
   <h2>Buttons</h2>
 
-  <h3>Button tag</h3>
-
   <p>Use the <code>&lt;btn&gt;</code> elements.</p>
 
   <section>
-    <btn>btn</btn>
+    <btn >Active</btn>
+    <btn disabled>Disabled</btn>
   </section>
-  <highlight>&lt;btn&gt;btn&lt;/btn&gt;</highlight>
+  <highlight>
+    &lt;btn&gt;Active&lt;/btn&gt;<br>
+    &lt;btn disabled&gt;Disabled&lt;/btn&gt;
+  </highlight>
+
+  <h3>Events</h3>
+
+  <section>
+    <btn onpush={ push }>{ message }</btn>
+  </section>
+  <highlight>
+    &lt;btn onpush=&#123; push &#125;&gt;&#123; message &#125;&lt;/btn&gt;<br>
+  </highlight>
 
   <h3>Options</h3>
 
@@ -57,7 +68,7 @@
       <btn size="xs">Extra small button</btn>
     </p>
   </section>
-  
+
   <highlight>
     &lt;btn option="primary" size="lg"&gt;Large button&lt;/btn&gt;<br>
     &lt;btn size="lg"&gt;Large button&lt;/btn&gt;<br>
@@ -71,6 +82,14 @@
     &lt;btn option="primary" size="xs"&gt;Extra small button&lt;/btn&gt;<br>
     &lt;btn size="xs"&gt;Extra small button&lt;/btn&gt;<br>
   </highlight>
+
+  <script>
+    this.message = 'Click me!'
+
+    push (e) {
+      this.message = 'Thanks.'
+    }
+  </script>
 
   <style scoped>
     :scope {
