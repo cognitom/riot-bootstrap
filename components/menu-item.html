@@ -18,6 +18,19 @@
 
     this.one('mount', this.addEventListners)
     this.one('unmount', this.removeEventListners)
+
+    /** SCOPE EMULATION **/
+    initProperties () {
+      this._ownPropKeys = []
+      for (var k in this) if (this[k]) this._ownPropKeys[k] = true
+    }
+    loadParentProperties () {
+      for (var k in this.parent)
+        if (!this._ownPropKeys[k])
+          this[k] = this.parent[k]
+    }
+    this.initProperties()
+    this.on('update', this.loadParentProperties)
   </script>
 
   <style>

@@ -78,8 +78,19 @@ riot.tag('menu-divider', '', 'menu-divider { display: block; height: 1px; margin
 });
 
 riot.tag('menu-header', '<yield></yield>', 'menu-header { display: block; padding: 3px 20px; font-size: 12px; line-height: 1.42857143; color: #777; white-space: nowrap; }', function(opts) {
-
-
+    
+    this.initProperties = function() {
+      this._ownPropKeys = []
+      for (var k in this) if (this[k]) this._ownPropKeys[k] = true
+    }.bind(this);
+    this.loadParentProperties = function() {
+      for (var k in this.parent)
+        if (!this._ownPropKeys[k])
+          this[k] = this.parent[k]
+    }.bind(this);
+    this.initProperties()
+    this.on('update', this.loadParentProperties)
+  
 });
 
 riot.tag('menu-item', '<yield></yield>', 'menu-item { display: block; padding: 3px 20px; clear: both; font-weight: normal; line-height: 1.42857143; color: #333; white-space: nowrap; cursor: pointer; } menu-item:hover, menu-item:focus { color: #262626; text-decoration: none; background-color: #f5f5f5; }', function(opts) {
@@ -98,6 +109,19 @@ riot.tag('menu-item', '<yield></yield>', 'menu-item { display: block; padding: 3
 
     this.one('mount', this.addEventListners)
     this.one('unmount', this.removeEventListners)
+
+    
+    this.initProperties = function() {
+      this._ownPropKeys = []
+      for (var k in this) if (this[k]) this._ownPropKeys[k] = true
+    }.bind(this);
+    this.loadParentProperties = function() {
+      for (var k in this.parent)
+        if (!this._ownPropKeys[k])
+          this[k] = this.parent[k]
+    }.bind(this);
+    this.initProperties()
+    this.on('update', this.loadParentProperties)
   
 });
 
@@ -117,7 +141,10 @@ riot.tag('menu', '<yield></yield>', 'menu { position: absolute; top: 100%; left:
       this.removeEventListners()
     }.bind(this);
     this.select = function(value) {
-      if (opts.onselect) opts.onselect(value)
+      if (opts.onselect) {
+        opts.onselect(value)
+        this.updateCaller(opts.onselect)
+      }
     }.bind(this);
     this.addEventListners = function(e) {
       document.addEventListener('touchstart', this.close, false)
@@ -129,6 +156,29 @@ riot.tag('menu', '<yield></yield>', 'menu { position: absolute; top: 100%; left:
     }.bind(this);
 
     if (this.parent) this.parent.on('inner-btn-toggle', this.open)
+
+    
+    this.updateCaller = function(f) {
+      var keys = []
+      for (var k in this.parent._ownPropKeys || this.parent) keys.push(k)
+      for (var i = 0; i < keys.length; i++)
+        if (this.parent[keys[i]] === f) {
+          this.parent.update()
+          return
+        }
+      if (this.parent.updateCaller) this.parent.updateCaller(f)
+    }.bind(this);
+    this.initProperties = function() {
+      this._ownPropKeys = []
+      for (var k in this) if (this[k]) this._ownPropKeys[k] = true
+    }.bind(this);
+    this.loadParentProperties = function() {
+      for (var k in this.parent)
+        if (!this._ownPropKeys[k])
+          this[k] = this.parent[k]
+    }.bind(this);
+    this.initProperties()
+    this.on('update', this.loadParentProperties)
   
 });
 
@@ -140,7 +190,7 @@ riot.tag('radio-group', '<yield></yield>', 'radio-group { position: relative; di
       this.root.value = value
       this.trigger('change', value)
       if (opts.onchange){
-        opts.onchange()
+        opts.onchange(value)
         this.updateCaller(opts.onchange)
       }
     }.bind(this);

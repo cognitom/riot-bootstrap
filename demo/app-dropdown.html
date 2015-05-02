@@ -7,7 +7,7 @@
   <section>
     <btn-group>
       <btn toggle="menu">Default <caret /></btn>
-      <menu>
+      <menu onselect={ select }>
         <menu-item value="action">Action</menu-item>
         <menu-item value="another">Another action</menu-item>
         <menu-item value="something">Something else here</menu-item>
@@ -17,19 +17,21 @@
 
     <btn-group>
       <btn toggle="menu" option="primary">Primary <caret /></btn>
-      <menu>
+      <menu onselect={ select }>
         <menu-item value="action">Action</menu-item>
         <menu-item value="another">Another action</menu-item>
         <menu-item value="something">Something else here</menu-item>
         <menu-item value="separated">Separated link</menu-item>
       </menu>
     </btn-group>
+
+    <p class="comment">Selected: <strong>{ selected }</strong></p>
   </section>
 
   <highlight>
     &lt;btn-group&gt;<br>
     &nbsp;&lt;btn toggle="menu"&gt;Default &lt;caret /&gt;&lt;/btn&gt;<br>
-    &nbsp;&lt;menu&gt;<br>
+    &nbsp;&lt;menu onselect=&#123; select &#125;&gt;<br>
     &nbsp;&nbsp;&lt;menu-item value="action"&gt;Action&lt;/menu-item&gt;<br>
     &nbsp;&nbsp;&lt;menu-item value="another"&gt;Another action&lt;/menu-item&gt;<br>
     &nbsp;&nbsp;&lt;menu-item value="something"&gt;Something else here&lt;/menu-item&gt;<br>
@@ -144,7 +146,7 @@
       </menu>
     </btn-group>
   </section>
-  
+
   <highlight>
     &lt;btn-group&gt;<br>
     &nbsp;&lt;btn&gt;Default&lt;/btn&gt;<br>
@@ -154,6 +156,14 @@
     &nbsp;&lt;/menu&gt;<br>
     &lt;/btn-group&gt;
   </highlight>
+
+  <script>
+    this.selected = 'none'
+    select (item) {
+      this.selected = item
+      this.update()
+    }
+  </script>
 
   <style scoped>
     :scope {
