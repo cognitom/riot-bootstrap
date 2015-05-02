@@ -10,7 +10,7 @@
       this.root.value = value
       this.trigger('change', value)
       if (opts.onchange){
-        opts.onchange()
+        opts.onchange(value)
         this.updateCaller(opts.onchange)
       }
     }
