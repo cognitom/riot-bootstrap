@@ -16,12 +16,15 @@
     }
     initProperties () {
       this._ownPropKeys = []
-      for (var k in this) if (this[k]) this._ownPropKeys[k] = true
+      this._ownOptsKeys = []
+      for (var k in this) this._ownPropKeys[k] = true
+      for (var k in opts) this._ownOptsKeys[k] = true
     }
     loadParentProperties () {
       for (var k in this.parent)
-        if (!this._ownPropKeys[k])
-          this[k] = this.parent[k]
+        if (!this._ownPropKeys[k]) this[k] = this.parent[k]
+      for (var k in this.parent.opts)
+        if (!this._ownOptsKeys[k]) opts[k] = this.parent.opts[k]
     }
     this.initProperties()
     this.on('update', this.loadParentProperties)

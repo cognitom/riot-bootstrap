@@ -192,6 +192,7 @@ There is some limitation:
 - v0.1.7: Fix: CommonJS issue
 - v0.2.0: Scope emulation. Related to https://github.com/muut/riotjs/issues/662
 - v0.2.1: Fix: automatic update
+- v0.2.2: Fix: `opts` also supported in scope emulation
 
 ## TODO:
 

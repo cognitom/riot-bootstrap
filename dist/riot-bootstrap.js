@@ -18,12 +18,15 @@ riot.tag('btn-group', '<yield></yield>', 'btn-group { position: relative; displa
     }.bind(this);
     this.initProperties = function() {
       this._ownPropKeys = []
-      for (var k in this) if (this[k]) this._ownPropKeys[k] = true
+      this._ownOptsKeys = []
+      for (var k in this) this._ownPropKeys[k] = true
+      for (var k in opts) this._ownOptsKeys[k] = true
     }.bind(this);
     this.loadParentProperties = function() {
       for (var k in this.parent)
-        if (!this._ownPropKeys[k])
-          this[k] = this.parent[k]
+        if (!this._ownPropKeys[k]) this[k] = this.parent[k]
+      for (var k in this.parent.opts)
+        if (!this._ownOptsKeys[k]) opts[k] = this.parent.opts[k]
     }.bind(this);
     this.initProperties()
     this.on('update', this.loadParentProperties)
@@ -55,12 +58,15 @@ riot.tag('btn', '<button type="button" __disabled="{ disabled }" data-option="{ 
     }.bind(this);
     this.initProperties = function() {
       this._ownPropKeys = []
-      for (var k in this) if (this[k]) this._ownPropKeys[k] = true
+      this._ownOptsKeys = []
+      for (var k in this) this._ownPropKeys[k] = true
+      for (var k in opts) this._ownOptsKeys[k] = true
     }.bind(this);
     this.loadParentProperties = function() {
       for (var k in this.parent)
-        if (!this._ownPropKeys[k])
-          this[k] = this.parent[k]
+        if (!this._ownPropKeys[k]) this[k] = this.parent[k]
+      for (var k in this.parent.opts)
+        if (!this._ownOptsKeys[k]) opts[k] = this.parent.opts[k]
     }.bind(this);
     this.initProperties()
     this.on('update', this.loadParentProperties)
@@ -81,12 +87,15 @@ riot.tag('menu-header', '<yield></yield>', 'menu-header { display: block; paddin
     
     this.initProperties = function() {
       this._ownPropKeys = []
-      for (var k in this) if (this[k]) this._ownPropKeys[k] = true
+      this._ownOptsKeys = []
+      for (var k in this) this._ownPropKeys[k] = true
+      for (var k in opts) this._ownOptsKeys[k] = true
     }.bind(this);
     this.loadParentProperties = function() {
       for (var k in this.parent)
-        if (!this._ownPropKeys[k])
-          this[k] = this.parent[k]
+        if (!this._ownPropKeys[k]) this[k] = this.parent[k]
+      for (var k in this.parent.opts)
+        if (!this._ownOptsKeys[k]) opts[k] = this.parent.opts[k]
     }.bind(this);
     this.initProperties()
     this.on('update', this.loadParentProperties)
@@ -113,12 +122,15 @@ riot.tag('menu-item', '<yield></yield>', 'menu-item { display: block; padding: 3
     
     this.initProperties = function() {
       this._ownPropKeys = []
-      for (var k in this) if (this[k]) this._ownPropKeys[k] = true
+      this._ownOptsKeys = []
+      for (var k in this) this._ownPropKeys[k] = true
+      for (var k in opts) this._ownOptsKeys[k] = true
     }.bind(this);
     this.loadParentProperties = function() {
       for (var k in this.parent)
-        if (!this._ownPropKeys[k])
-          this[k] = this.parent[k]
+        if (!this._ownPropKeys[k]) this[k] = this.parent[k]
+      for (var k in this.parent.opts)
+        if (!this._ownOptsKeys[k]) opts[k] = this.parent.opts[k]
     }.bind(this);
     this.initProperties()
     this.on('update', this.loadParentProperties)
@@ -170,12 +182,15 @@ riot.tag('menu', '<yield></yield>', 'menu { position: absolute; top: 100%; left:
     }.bind(this);
     this.initProperties = function() {
       this._ownPropKeys = []
-      for (var k in this) if (this[k]) this._ownPropKeys[k] = true
+      this._ownOptsKeys = []
+      for (var k in this) this._ownPropKeys[k] = true
+      for (var k in opts) this._ownOptsKeys[k] = true
     }.bind(this);
     this.loadParentProperties = function() {
       for (var k in this.parent)
-        if (!this._ownPropKeys[k])
-          this[k] = this.parent[k]
+        if (!this._ownPropKeys[k]) this[k] = this.parent[k]
+      for (var k in this.parent.opts)
+        if (!this._ownOptsKeys[k]) opts[k] = this.parent.opts[k]
     }.bind(this);
     this.initProperties()
     this.on('update', this.loadParentProperties)
@@ -208,12 +223,15 @@ riot.tag('radio-group', '<yield></yield>', 'radio-group { position: relative; di
     }.bind(this);
     this.initProperties = function() {
       this._ownPropKeys = []
-      for (var k in this) if (this[k]) this._ownPropKeys[k] = true
+      this._ownOptsKeys = []
+      for (var k in this) this._ownPropKeys[k] = true
+      for (var k in opts) this._ownOptsKeys[k] = true
     }.bind(this);
     this.loadParentProperties = function() {
       for (var k in this.parent)
-        if (!this._ownPropKeys[k])
-          this[k] = this.parent[k]
+        if (!this._ownPropKeys[k]) this[k] = this.parent[k]
+      for (var k in this.parent.opts)
+        if (!this._ownOptsKeys[k]) opts[k] = this.parent.opts[k]
     }.bind(this);
     this.initProperties()
     this.on('update', this.loadParentProperties)
