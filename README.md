@@ -142,6 +142,47 @@ $ browserify -t [ riotify --ext html ] app.js
 
 See [the demo page](http://cognitom.github.io/riot-bootstrap).
 
+
+## Scope emulation
+
+Riot.js has a scope for most inner Tag element. So we need to write like this:
+
+```html
+<app>
+  <btn-group>
+    <btn onpush={ parent.parent.push }>{ parent.parent.message }</btn>
+  </btn-group>
+  this.message = 'Click me!'
+  push (e) {
+    this.message = 'Thanks!'
+    this.update() // needed to re-render
+  }
+</app>
+```
+
+But this is a little bit inconvenient, so `riot-bootstrap` has a simple 'Scope emulation' mechanism. Now we can write like this.
+
+```html
+<app>
+  <btn-group>
+    <btn onpush={ push }>{ message }</btn>
+  </btn-group>
+  this.message = 'Click me!'
+  push (e) {
+    this.message = 'Thanks!'
+    // automatically re-rendered
+  }
+</app>
+```
+
+There is some limitation:
+
+- The variables in the parent's scope are updated just before `update` event.
+- The view is automatically re-rendered only if the method is a member of `Tag` element. In NG case below, `this.update()` is needed to call manually.
+    - OK: `<btn onpush={ push }>Hi!</btn>`
+    - NG: `<btn onpush={ memberOf.subObject }>Hi!</btn>`
+    - NG: `<btn onpush={ returnFunction() }>Hi!</btn>`
+
 ## History
 
 - v0.0.1: Buttons, button groups, dropdowns
@@ -150,6 +191,7 @@ See [the demo page](http://cognitom.github.io/riot-bootstrap).
 - v0.1.2: Support Browserify and publish to NPM
 - v0.1.7: Fix: CommonJS issue
 - v0.2.0: Scope emulation. Related to https://github.com/muut/riotjs/issues/662
+- v0.2.1: Fix: automatic update
 
 ## TODO:
 
