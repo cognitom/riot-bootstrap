@@ -5,12 +5,18 @@
   <p>Use the <code>&lt;btn&gt;</code> elements.</p>
 
   <section>
-    <btn >Active</btn>
+    <btn>Active</btn>
     <btn disabled>Disabled</btn>
+    <btn disabled="disabled">Disabled</btn>
+    <btn disabled={ false }>Active</btn>
+    <btn disabled={ true }>Disabled</btn>
   </section>
   <highlight>
     &lt;btn&gt;Active&lt;/btn&gt;<br>
-    &lt;btn disabled&gt;Disabled&lt;/btn&gt;
+    &lt;btn disabled&gt;Disabled&lt;/btn&gt;<br>
+    &lt;btn disabled="disabled"&gt;Disabled&lt;/btn&gt;<br>
+    &lt;btn disabled=&#123; false &#125;&gt;Active&lt;/btn&gt;<br>
+    &lt;btn disabled=&#123; true &#125;&gt;Disabled&lt;/btn&gt;
   </highlight>
 
   <h3>Events</h3>

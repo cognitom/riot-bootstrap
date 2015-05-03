@@ -9,7 +9,10 @@
     ><yield/></button>
 
   <script>
-    this.disabled = (opts.disabled !== undefined && opts.disabled !== 'no')
+    this.disabled =
+      opts.hasOwnProperty('disabled') ? opts.disabled === '' || opts.disabled === 'disabled':
+      opts.hasOwnProperty('__disabled') ? opts.__disabled === true :
+      false
 
     push (e) {
       if (this.disabled) return
