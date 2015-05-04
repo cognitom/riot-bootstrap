@@ -9,11 +9,14 @@
     ><yield/></button>
 
   <script>
-    this.disabled =
-      opts.hasOwnProperty('disabled') ? opts.disabled === '' || opts.disabled === 'disabled':
-      opts.hasOwnProperty('__disabled') ? opts.__disabled === true :
-      false
+    this.disabled = undefined
 
+    culculateProperties (e) {
+      this.disabled =
+        opts.hasOwnProperty('disabled') ? opts.disabled === '' || opts.disabled === 'disabled':
+        opts.hasOwnProperty('__disabled') ? opts.__disabled === true :
+        false
+    }
     push (e) {
       if (this.disabled) return
       if (this.parent && opts.toggle) this.parent.trigger('inner-btn-toggle')
@@ -48,6 +51,8 @@
     }
     this.initProperties()
     this.on('update', this.loadParentProperties)
+
+    this.on('update', this.culculateProperties)
   </script>
 
   <style scoped>
