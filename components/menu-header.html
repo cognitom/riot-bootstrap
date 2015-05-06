@@ -3,19 +3,7 @@
   <yield/>
 
   <script>
-    /** SCOPE EMULATION **/
-    initProperties () {
-      this._ownPropKeys = []
-      this._ownOptsKeys = []
-      for (var k in this) this._ownPropKeys[k] = true
-      for (var k in opts) this._ownOptsKeys[k] = true
-    }
-    loadParentProperties () {
-      for (var k in this.parent)
-        if (!this._ownPropKeys[k]) this[k] = this.parent[k]
-      for (var k in this.parent.opts)
-        if (!this._ownOptsKeys[k]) opts[k] = this.parent.opts[k]
-    }
+    this.mixin(mixin.parentScope)
     this.initProperties()
     this.on('update', this.loadParentProperties)
   </script>

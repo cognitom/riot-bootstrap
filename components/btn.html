@@ -9,6 +9,7 @@
     ><yield/></button>
 
   <script>
+    this.mixin(mixin.parentScope)
     this.disabled = undefined
 
     culculateProperties (e) {
@@ -26,32 +27,8 @@
       }
     }
 
-    /** SCOPE EMULATION **/
-    updateCaller (f) {
-      var keys = []
-      for (var k in this.parent._ownPropKeys || this.parent) keys.push(k)
-      for (var i = 0; i < keys.length; i++)
-        if (this.parent[keys[i]] === f) {
-          this.parent.update()
-          return
-        }
-      if (this.parent.updateCaller) this.parent.updateCaller(f)
-    }
-    initProperties () {
-      this._ownPropKeys = []
-      this._ownOptsKeys = []
-      for (var k in this) this._ownPropKeys[k] = true
-      for (var k in opts) this._ownOptsKeys[k] = true
-    }
-    loadParentProperties () {
-      for (var k in this.parent)
-        if (!this._ownPropKeys[k]) this[k] = this.parent[k]
-      for (var k in this.parent.opts)
-        if (!this._ownOptsKeys[k]) opts[k] = this.parent.opts[k]
-    }
     this.initProperties()
     this.on('update', this.loadParentProperties)
-
     this.on('update', this.culculateProperties)
   </script>
 
