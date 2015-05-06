@@ -4,6 +4,8 @@ riot         = require 'gulp-riot'
 rename       = require 'gulp-rename'
 uglify       = require 'gulp-uglify'
 wrap         = require 'gulp-wrap'
+shell        = require 'gulp-shell'
+streamqueue  = require 'streamqueue'
 runSequence  = require 'run-sequence'
 path         = require 'path'
 browserSync  = require 'browser-sync'
@@ -14,11 +16,16 @@ $ =
   dist:       './dist'
   tags:       './components'
   demo:       './demo'
+  riot:       './dist/riot-dev.js'
+  riotSrc:    './node_modules/riot/lib/riot.js'
   tagsSrc:    ['./components/*.html']
+  mixinSrc:   ['./mixins/*.js']
   demoSrc:    ['./demo/*.html']
   watch:      ['index.html', 'dist/*', 'demo/app.js']
 
-gulp.task 'default', (cb) -> runSequence 'build', 'demo', cb
+gulp.task 'default', (cb) -> runSequence 'smash', 'build', 'demo', cb
+
+gulp.task 'smash', shell.task "smash #{ $.riotSrc } > #{ $.riot }"
 
 gulp.task 'demo', ->
   gulp.src $.demoSrc
@@ -28,8 +35,10 @@ gulp.task 'demo', ->
   .pipe gulp.dest $.demo
 
 gulp.task 'build', ->
-  gulp.src $.tagsSrc
-  .pipe riot()
+  streamqueue objectMode: true,
+    gulp.src $.mixinSrc
+    gulp.src $.tagsSrc
+    .pipe riot()
   .pipe concat 'riot-bootstrap.js'
   .pipe wrap src: 'template.txt'
   .pipe gulp.dest $.dist
@@ -42,6 +51,6 @@ gulp.task 'watch', ->
     notify: false
     server: baseDir: './'
   o = debounceDelay: 3000
-  gulp.watch [$.tagsSrc], o, ['build']
+  gulp.watch [$.tagsSrc, $.mixinSrc], o, ['build']
   gulp.watch [$.demoSrc], o, ['demo']
   gulp.watch $.watch, o, reload
