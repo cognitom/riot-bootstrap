@@ -1057,8 +1057,11 @@ function mountTo(root, tagName, opts) {
 }
 
 riot.tag = function(name, html, css, attrs, fn) {
-  if (typeof attrs == 'function') { fn = attrs; attrs = '' } // < v2.0.16
-  if (typeof css == 'function') { fn = css; attrs = '' } // < v2.0.0.10
+  if (typeof attrs == 'function') {
+    fn = attrs
+    if (/^[\w\-]+\s?=/.test(css)) { attrs = css; css = '' } else attrs = ''
+  } // < v2.0.16
+  if (typeof css == 'function') fn = css; // < v2.0.0.10
   else if (css) injectStyle(css)
   tagImpl[name] = { name: name, tmpl: html, attrs: attrs, fn: fn }
   return name
