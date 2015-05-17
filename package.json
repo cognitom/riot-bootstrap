@@ -1,6 +1,6 @@
 {
   "name": "riot-bootstrap",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Bootstrap-like Components for Riot.js",
   "homepage": "https://github.com/cognitom/riot-bootstrap",
   "repository": {

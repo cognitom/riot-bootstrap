@@ -5,8 +5,7 @@
   // it leads to the following error on firefox "setting a property that has only a getter"
   //'use strict'
 
-  var riot = { version: 'WIP', settings: {} },
-      ieVersion = checkIE()
+  var riot = { version: 'WIP', settings: {} }
 
 riot.observable = function(el) {
 
@@ -76,6 +75,13 @@ riot.observable = function(el) {
   return el
 
 }
+riot.mixin = (function() {
+  var registeredMixins = {}
+  return function(name, mixin) {
+    if (!mixin) return registeredMixins[name]
+      else registeredMixins[name] = mixin
+  }
+})()
 
 ;(function(riot, evt, window) {
 
@@ -332,7 +338,7 @@ var tmpl = (function() {
 
           // break the expression if its empty (resulting in undefined value)
           || 'x')
-
+      + '}catch(e){'
       + '}finally{return '
 
         // default to empty string for falsy values except zero
@@ -442,7 +448,8 @@ function _each(dom, parent, expr) {
 
     // object loop. any changes cause full redraw
     if (!Array.isArray(items)) {
-      var testsum = items._id
+      var testsum = JSON.stringify(items)
+
       if (testsum == checksum) return
       checksum = testsum
 
@@ -561,6 +568,7 @@ function parseNamedElements(root, parent, childTags) {
 
   walk(root, function(dom) {
     if (dom.nodeType == 1) {
+      dom.isLoop = 0
       if(dom.parentNode && dom.parentNode.isLoop) dom.isLoop = 1
       if(dom.getAttribute('each')) dom.isLoop = 1
       // custom child tag
@@ -568,7 +576,8 @@ function parseNamedElements(root, parent, childTags) {
 
       if (child && !dom.isLoop) {
         var tag = new Tag(child, { root: dom, parent: parent }, dom.innerHTML),
-            tagName = child.name,
+            namedTag = dom.getAttribute('name'),
+            tagName = namedTag && namedTag.indexOf(brackets(0)) < 0 ? namedTag : child.name,
             ptag = parent,
             cachedTag
 
@@ -670,7 +679,7 @@ function Tag(impl, conf, innerHTML) {
   if(impl.attrs) {
     var attrs = impl.attrs.match(TAG_ATTRIBUTES)
 
-    attrs.map(function(a) {
+    each(attrs, function(a) {
       var kv = a.split(/\s?=\s?/)
       root.setAttribute(kv[0], kv[1].replace(/['"]/g, ''))
     })
@@ -682,7 +691,7 @@ function Tag(impl, conf, innerHTML) {
 
   // create a unique id to this tag
   // it could be handy to use it also to improve the virtual dom rendering speed
-  this._id = ~~(new Date().getTime() * Math.random())
+  this._id = fastAbs(~~(new Date().getTime() * Math.random()))
 
   extend(this, { parent: parent, root: root, opts: opts, tags: {} }, item)
 
@@ -692,7 +701,7 @@ function Tag(impl, conf, innerHTML) {
   })
 
 
-  if (dom.innerHTML && !/select/.test(tagName))
+  if (dom.innerHTML && !/select/.test(tagName) && !/tbody/.test(tagName) && !/tr/.test(tagName))
     // replace all the yield tags with the tag inner html
     dom.innerHTML = replaceYield(dom.innerHTML, innerHTML)
 
@@ -714,7 +723,14 @@ function Tag(impl, conf, innerHTML) {
 
   this.mixin = function() {
     each(arguments, function(mix) {
-      extend(self, mix)
+      mix = 'string' == typeof mix ? riot.mixin(mix) : mix
+      each(Object.keys(mix), function(key) {
+        // bind methods to self
+        if ('init' != key)
+          self[key] = 'function' == typeof mix[key] ? mix[key].bind(self) : mix[key]
+      })
+      // init method will be called automatically
+      if (mix.init) mix.init.bind(self)()
     })
   }
 
@@ -744,8 +760,11 @@ function Tag(impl, conf, innerHTML) {
     }
 
     if (root.stub) self.root = root = parent.root
-    self.trigger('mount')
 
+    // if it's not a child tag we can trigger its mount event
+    if (!self.parent) self.trigger('mount')
+    // otherwise we need to wait that the parent event gets triggered
+    else self.parent.one('mount', function() { self.trigger('mount') })
   }
 
 
@@ -766,7 +785,7 @@ function Tag(impl, conf, innerHTML) {
           })
         } else
           // otherwise just delete the tag instance
-          delete parent.tags[tagName]
+          parent.tags[tagName] = undefined
       } else {
         while (el.firstChild) el.removeChild(el.firstChild)
       }
@@ -820,8 +839,10 @@ function setEventHandler(name, handler, dom, tag, item) {
       e.returnValue = false
     }
 
-    var el = item ? tag.parent : tag
-    el.update()
+    if (!e.preventUpdate) {
+      var el = item ? tag.parent : tag
+      el.update()
+    }
 
   }
 
@@ -920,6 +941,10 @@ function remAttr(dom, name) {
   dom.removeAttribute(name)
 }
 
+function fastAbs(nr) {
+  return (nr ^ (nr >> 31)) - (nr >> 31)
+}
+
 // max 2 from objects allowed
 function extend(obj, from, from2) {
   from && each(Object.keys(from), function(key) {
@@ -928,51 +953,20 @@ function extend(obj, from, from2) {
   return from2 ? extend(obj, from2) : obj
 }
 
-function checkIE() {
-  if (window) {
-    var ua = navigator.userAgent
-    var msie = ua.indexOf('MSIE ')
-    if (msie > 0) {
-      return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10)
-    }
-    else {
-      return 0
-    }
-  }
-}
-
-function optionInnerHTML(el, html) {
-  var opt = document.createElement('option'),
-      valRegx = /value=[\"'](.+?)[\"']/,
-      selRegx = /selected=[\"'](.+?)[\"']/,
-      valuesMatch = html.match(valRegx),
-      selectedMatch = html.match(selRegx)
-
-  opt.innerHTML = html
-
-  if (valuesMatch) {
-    opt.value = valuesMatch[1]
-  }
-
-  if (selectedMatch) {
-    opt.setAttribute('riot-selected', selectedMatch[1])
-  }
-
-  el.appendChild(opt)
-}
-
 function mkdom(template) {
   var tagName = template.trim().slice(1, 3).toLowerCase(),
       rootTag = /td|th/.test(tagName) ? 'tr' : tagName == 'tr' ? 'tbody' : 'div',
-      el = document.createElement(rootTag)
+      el = mkEl(rootTag)
 
   el.stub = true
 
-  if (tagName === 'op' && ieVersion && ieVersion < 10) {
+  if (tagName === 'op' && ieVersion && ieVersion < 10)
     optionInnerHTML(el, template)
-  } else {
+  else if ((rootTag === 'tbody' || rootTag === 'tr') && ieVersion && ieVersion < 10)
+    tbodyInnerHTML(el, template, tagName)
+  else
     el.innerHTML = template
-  }
+
   return el
 }
 
@@ -988,6 +982,10 @@ function walk(dom, fn) {
       }
     }
   }
+}
+
+function mkEl(name) {
+  return document.createElement(name)
 }
 
 function replaceYield (tmpl, innerHTML) {
@@ -1016,6 +1014,62 @@ function inherit(parent) {
   Child.prototype = parent
   return new Child()
 }
+/**
+ *
+ * Hacks needed for the old internet explorer versions [lower than IE10]
+ *
+ */
+
+var ieVersion = checkIE()
+
+function checkIE() {
+  if (window) {
+    var ua = navigator.userAgent
+    var msie = ua.indexOf('MSIE ')
+    if (msie > 0) {
+      return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10)
+    }
+    else {
+      return 0
+    }
+  }
+}
+
+function tbodyInnerHTML(el, html, tagName) {
+  var div = mkEl('div'),
+      loops = /td|th/.test(tagName) ? 3 : 2,
+      child
+
+  div.innerHTML = '<table>' + html + '</table>'
+  child = div.firstChild
+
+  while(loops--) {
+    child = child.firstChild
+  }
+
+  el.appendChild(child)
+
+}
+
+function optionInnerHTML(el, html) {
+  var opt = mkEl('option'),
+      valRegx = /value=[\"'](.+?)[\"']/,
+      selRegx = /selected=[\"'](.+?)[\"']/,
+      valuesMatch = html.match(valRegx),
+      selectedMatch = html.match(selRegx)
+
+  opt.innerHTML = html
+
+  if (valuesMatch) {
+    opt.value = valuesMatch[1]
+  }
+
+  if (selectedMatch) {
+    opt.setAttribute('riot-selected', selectedMatch[1])
+  }
+
+  el.appendChild(opt)
+}
 
 /*
  Virtual dom is an array of custom tags on the document.
@@ -1032,9 +1086,24 @@ function getTag(dom) {
 }
 
 function injectStyle(css) {
-  styleNode = styleNode || document.createElement('style')
-  styleNode.innerHTML += css
-  if(document.head && !document.head.contains(styleNode)) document.head.appendChild(styleNode)
+
+  styleNode = styleNode || mkEl('style')
+
+  if (!document.head) return
+
+  if(styleNode.styleSheet)
+    styleNode.styleSheet.cssText += css
+  else
+    styleNode.innerHTML += css
+
+  if (!styleNode._rendered)
+    if (styleNode.styleSheet)
+      document.body.appendChild(styleNode)
+    else
+      document.head.appendChild(styleNode)
+
+  styleNode._rendered = true
+
 }
 
 function mountTo(root, tagName, opts) {
@@ -1059,9 +1128,9 @@ function mountTo(root, tagName, opts) {
 riot.tag = function(name, html, css, attrs, fn) {
   if (typeof attrs == 'function') {
     fn = attrs
-    if (/^[\w\-]+\s?=/.test(css)) { attrs = css; css = '' } else attrs = ''
-  } // < v2.0.16
-  if (typeof css == 'function') fn = css; // < v2.0.0.10
+    if(/^[\w\-]+\s?=/.test(css)) {attrs = css; css = ''} else attrs = ''
+  }
+  if (typeof css == 'function') fn = css
   else if (css) injectStyle(css)
   tagImpl[name] = { name: name, tmpl: html, attrs: attrs, fn: fn }
   return name
@@ -1070,13 +1139,15 @@ riot.tag = function(name, html, css, attrs, fn) {
 riot.mount = function(selector, tagName, opts) {
 
   var el,
-      selctAllTags = function(sel) {
-        sel = Object.keys(tagImpl).join(', ')
-        sel.split(',').map(function(t) {
-          sel += ', *[riot-tag="'+ t.trim() + '"]'
+      selctAllTags = function() {
+        var keys = Object.keys(tagImpl)
+        var list = keys.join(', ')
+        each(keys, function(t) {
+          list += ', *[riot-tag="'+ t.trim() + '"]'
         })
-        return sel
+        return list
       },
+      allTags,
       tags = []
 
   if (typeof tagName == 'object') { opts = tagName; tagName = 0 }
@@ -1086,7 +1157,7 @@ riot.mount = function(selector, tagName, opts) {
     if (selector == '*') {
       // select all the tags registered
       // and also the tags found with the riot-tag attribute set
-      selector = selctAllTags(selector)
+      selector = allTags = selctAllTags()
     } else {
       selector.split(',').map(function(t) {
         selector += ', *[riot-tag="'+ t.trim() + '"]'
@@ -1103,7 +1174,7 @@ riot.mount = function(selector, tagName, opts) {
   // select all the registered and mount them inside their root elements
   if (tagName == '*') {
     // get all custom tags
-    tagName = selctAllTags(selector)
+    tagName = allTags || selctAllTags()
     // if the root el it's just a single tag
     if (el.tagName) {
       el = $$(tagName, el)

@@ -195,6 +195,8 @@ There is some limitation:
 - v0.2.2: Fix: `opts` also supported in scope emulation
 - v0.2.3: Fix: `disabled` now works with `boolean`
 - v0.2.4: Fix: update `disabled` status after second update
+- v0.3.0: `parentScope` as a mixin
+- v0.3.1: Use mixin initializer
 
 ## TODO:
 
