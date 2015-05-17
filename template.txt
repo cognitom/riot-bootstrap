@@ -6,6 +6,7 @@
 ;(function(window) {
 
 var riot = (!window || !window.riot) ? require('riot') : window.riot;
+
 <%= contents %>
 
 })(typeof window != 'undefined' ? window : undefined)

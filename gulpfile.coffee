@@ -38,10 +38,9 @@ gulp.task 'build', ->
   streamqueue objectMode: true,
     gulp.src $.tagsSrc
     .pipe riot()
-    .pipe concat 'temp'
-    .pipe wrap src: 'template.txt'
     gulp.src $.mixinSrc
   .pipe concat 'riot-bootstrap.js'
+  .pipe wrap src: 'template.txt'
   .pipe gulp.dest $.dist
   .pipe uglify()
   .pipe rename extname: '.min.js'
