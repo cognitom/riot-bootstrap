@@ -3,7 +3,6 @@
   <yield/>
 
   <script>
-    this.mixin(riot.mixin.parentScope)
     var opened = false
 
     open (e) {
@@ -34,9 +33,7 @@
     }
 
     if (this.parent) this.parent.on('inner-btn-toggle', this.open)
-
-    this.initProperties()
-    this.on('update', this.loadParentProperties)
+    this.mixin('parentScope')
   </script>
 
   <style scoped>

@@ -9,7 +9,6 @@
     ><yield/></button>
 
   <script>
-    this.mixin(riot.mixin.parentScope)
     this.disabled = undefined
 
     culculateProperties (e) {
@@ -27,9 +26,8 @@
       }
     }
 
-    this.initProperties()
-    this.on('update', this.loadParentProperties)
     this.on('update', this.culculateProperties)
+    this.mixin('parentScope')
   </script>
 
   <style scoped>

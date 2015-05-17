@@ -3,7 +3,6 @@
   <yield/>
 
   <script>
-    this.mixin(riot.mixin.parentScope)
     this.value = opts.value
 
     set (value) {
@@ -15,9 +14,8 @@
         this.updateCaller(opts.onchange)
       }
     }
-
-    this.initProperties()
-    this.on('update', this.loadParentProperties)
+    
+    this.mixin('parentScope')
   </script>
 
   <style scoped>

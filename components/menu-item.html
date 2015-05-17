@@ -3,7 +3,6 @@
   <yield/>
 
   <script>
-    this.mixin(riot.mixin.parentScope)
 
     click (e) {
       var menu = this.parent
@@ -18,10 +17,9 @@
       this.root.removeEventListener('click', this.click)
     }
 
-    this.initProperties()
     this.one('mount', this.addEventListners)
     this.one('unmount', this.removeEventListners)
-    this.on('update', this.loadParentProperties)
+    this.mixin('parentScope')
   </script>
 
   <style>
