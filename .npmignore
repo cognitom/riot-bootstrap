@@ -3,3 +3,4 @@ test
 template.txt
 index.html
 gulpfile.coffee
+dist/riot-dev.js

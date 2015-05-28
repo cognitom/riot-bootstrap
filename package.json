@@ -25,7 +25,7 @@
     "gulp-shell": "^0.4.1",
     "gulp-uglify": "^1.2.0",
     "gulp-wrap": "^0.11.0",
-    "riot": "muut/riotjs#dev",
+    "riot": "^2.1.0",
     "run-sequence": "^1.1.0",
     "smash": "0.0.14",
     "streamqueue": "^0.1.3"
