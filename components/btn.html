@@ -20,6 +20,10 @@
     push (e) {
       if (this.disabled) return
       if (this.parent && opts.toggle) this.parent.trigger('inner-btn-toggle')
+      if (opts.href) {
+        e.preventUpdate = true
+        location.href = opts.href
+      }
       if (opts.onpush){
         opts.onpush(e)
         this.updateCaller(opts.onpush)

@@ -197,6 +197,7 @@ There is some limitation:
 - v0.2.4: Fix: update `disabled` status after second update
 - v0.3.0: `parentScope` as a mixin
 - v0.3.1: Use mixin initializer
+- v0.3.2: Add `href` attribute to `btn` tag
 
 ## TODO:
 
