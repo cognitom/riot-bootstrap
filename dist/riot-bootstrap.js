@@ -122,6 +122,7 @@ riot.tag('menu-item', '<yield></yield>', 'menu-item { display: block; padding: 3
 
     this.click = function(e) {
       var menu = this.parent
+      if (!menu.select) menu = menu.parent // if inner roop
       menu.select(opts.value || this.root.innerText)
     }.bind(this);
     this.addEventListners = function(e) {

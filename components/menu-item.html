@@ -6,6 +6,7 @@
 
     click (e) {
       var menu = this.parent
+      if (!menu.select) menu = menu.parent // if inner roop
       menu.select(opts.value || this.root.innerText)
     }
     addEventListners (e) {
