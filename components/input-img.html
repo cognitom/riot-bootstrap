@@ -1,0 +1,89 @@
+<input-img>
+
+  <img src={ image } width={ width } height={ height }>
+  <input if={ name } name={ name } type="hidden" value={ self.image }>
+
+  <script>
+    var self = this
+    self.image  = opts.value || opts.placeholder || ''
+    self.width  = opts.width || 100
+    self.height = opts.height || 100
+    self.name   = opts.name || ''
+
+    processFiles(e) {
+      e.stopPropagation()
+      e.preventDefault()
+      self.dehightlight()
+
+      var file = e.dataTransfer.files[0]
+      var reader = new FileReader()
+      if (file.type.match('image.*')) {
+        reader.onload = function(e2) {
+          self.image = e2.target.result
+          self.update()
+          if (self.image.length > 32768)
+            console.log('In IE8, data URIs cannot be larger than 32,768 characters.')
+          self.trigger('change')
+        }
+        reader.readAsDataURL(file)
+      }
+    }
+
+    highlight(e) {
+      e.stopPropagation()
+      e.preventDefault()
+      self.root.setAttribute('class', 'highlight')
+    }
+
+    dehightlight() {
+      self.root.removeAttribute('class')
+    }
+
+    if (isDroppable()) {
+      self.on('mount', function() {
+        self.root.addEventListener('drop', self.processFiles, false)
+        self.root.addEventListener('dragover', self.highlight, false)
+        self.root.addEventListener('dragenter', self.highlight, false)
+        self.root.addEventListener('dragleave', self.dehightlight, false)
+      })
+    }
+
+    self.on('update', function() {
+      self.root.value = self.image
+    })
+
+    self.on('change', function() {
+      if (opts.onchange){
+        opts.onchange()
+        self.updateCaller(opts.onchange)
+      }
+    })
+
+    function isDroppable() {
+      return window.File && window.FileReader && window.FileList && window.Blob
+    }
+
+    this.mixin('parentScope')
+  </script>
+
+  <style>
+    input-img {
+      position: relative;
+      display: inline-block;
+      vertical-align: middle;
+      padding: 4px;
+      line-height: 1em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    input-img.highlight {
+      box-shadow: 0 0 5px #419bf9;
+    }
+    input-img > img {
+      display: block;
+      border-radius: 3px;
+    }
+  </style>
+
+</input-img>

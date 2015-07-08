@@ -1,0 +1,30 @@
+<app-input-img>
+
+  <h2>Input Image</h2>
+
+  <p>Missing input element for image.</p>
+
+  <section>
+    <input-img placeholder="https://avatars1.githubusercontent.com/u/16032?v=3&s=100" onchange={ change } />
+    <p class="comment">{ comment }</p>
+  </section>
+
+  <highlight>
+    &lt;input-img name="profile" placeholder="some.png" onchange=\{ change } /&gt;
+  </highlight>
+
+  <script>
+    this.comment = 'Drag your image here!'
+
+    change () {
+      this.comment = 'Image dropped!'
+    }
+  </script>
+
+  <style scoped>
+    :scope {
+      display: block;
+    }
+  </style>
+
+</app-input-img>
