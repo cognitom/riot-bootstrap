@@ -10,6 +10,10 @@
       <btn onpush={ pushM }>Middle</btn>
       <btn onpush={ pushR }>Right</btn>
     </btn-group>
+    <btn-group>
+      <btn onpush={ toggle } disabled={ isOn }>Turn On</btn>
+      <btn onpush={ toggle } disabled={ !isOn }>Turn Off</btn>
+    </btn-group>
     <p class="comment">{ comment }</p>
   </section>
 
@@ -18,11 +22,16 @@
     &nbsp;&lt;btn onpush=\{ pushL }&gt;Left&lt;/btn&gt;<br>
     &nbsp;&lt;btn onpush=\{ pushM }&gt;Middle&lt;/btn&gt;<br>
     &nbsp;&lt;btn onpush=\{ pushR }&gt;Right&lt;/btn&gt;<br>
+    &lt;/btn-group&gt;<br>
+    &lt;btn-group&gt;<br>
+    &nbsp;&lt;btn onpush=\{ toggle } disabled=\{ isOn }&gt;Turn Off&lt;/btn&gt;<br>
+    &nbsp;&lt;btn onpush=\{ toggle } disabled=\{ !isOn }&gt;Turn On&lt;/btn&gt;<br>
     &lt;/btn-group&gt;
   </highlight>
 
   <script>
     this.comment = 'Click me!'
+    this.isOn = false
 
     pushL (e) {
       this.comment = 'Left button was clicked.'
@@ -32,6 +41,10 @@
     }
     pushR (e) {
       this.comment = 'Right button was clicked.'
+    }
+
+    toggle (e) {
+      this.isOn = !this.isOn
     }
   </script>
 
