@@ -17,8 +17,8 @@ riot.tag('btn', '<button type="button" __disabled="{ disabled }" data-option="{ 
 
     this.culculateProperties = function(e) {
       this.disabled =
-        opts.hasOwnProperty('disabled') ? opts.disabled === '' || opts.disabled === 'disabled':
         opts.hasOwnProperty('__disabled') ? opts.__disabled === true :
+        opts.hasOwnProperty('disabled') ? opts.disabled === '' || opts.disabled === 'disabled':
         false
     }.bind(this);
     this.push = function(e) {
@@ -27,8 +27,10 @@ riot.tag('btn', '<button type="button" __disabled="{ disabled }" data-option="{ 
       if (opts.href) {
         e.preventUpdate = true
         location.href = opts.href
+        return
       }
       if (opts.onpush){
+        e.preventUpdate = true
         opts.onpush(e)
         this.updateCaller(opts.onpush)
       }

@@ -198,6 +198,7 @@ There is some limitation:
 - v0.3.0: `parentScope` as a mixin
 - v0.3.1: Use mixin initializer
 - v0.3.2: Add `href` attribute to `btn` tag
+- v0.3.3: Fix the bug [#10](https://github.com/cognitom/riot-bootstrap/issues/10)
 
 ## TODO:
 
