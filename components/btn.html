@@ -13,8 +13,8 @@
 
     culculateProperties (e) {
       this.disabled =
-        opts.hasOwnProperty('disabled') ? opts.disabled === '' || opts.disabled === 'disabled':
         opts.hasOwnProperty('__disabled') ? opts.__disabled === true :
+        opts.hasOwnProperty('disabled') ? opts.disabled === '' || opts.disabled === 'disabled':
         false
     }
     push (e) {
@@ -23,8 +23,10 @@
       if (opts.href) {
         e.preventUpdate = true
         location.href = opts.href
+        return
       }
       if (opts.onpush){
+        e.preventUpdate = true
         opts.onpush(e)
         this.updateCaller(opts.onpush)
       }
