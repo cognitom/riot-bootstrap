@@ -5,6 +5,7 @@
     disabled={ disabled }
     data-option={ opts.option }
     data-size={ opts.size }
+    data-active={ active ? 'yes' : 'no' }
     onclick={ push }
     ><yield/></button>
 
@@ -15,6 +16,9 @@
       this.disabled =
         opts.hasOwnProperty('__disabled') ? opts.__disabled === true :
         opts.hasOwnProperty('disabled') ? opts.disabled === '' || opts.disabled === 'disabled':
+        false
+      this.active =
+        opts.hasOwnProperty('active') ? opts.active === '' || opts.active === 'active' || opts.active === true:
         false
     }
     push (e) {
@@ -62,10 +66,11 @@
       color: #333;
       text-decoration: none;
     }
-    button:active {
+    button:active,
+    button[data-active="yes"] {
       background-image: none;
       outline: 0;
-      box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+      box-shadow: inset 0 3px 2px rgba(0, 0, 0, .1);
     }
     button[disabled] {
       pointer-events: none;
@@ -82,7 +87,8 @@
     button { color: #333; background-color: #fff; border-color: #ccc }
     button:hover,
     button:focus,
-    button:active { color: #333; background-color: #e6e6e6; border-color: #adadad }
+    button:active,
+    button[data-active="yes"] { color: #333; background-color: #e6e6e6; border-color: #adadad }
     /* option: primary */
     button[data-option="primary"] { color: #fff; background-color: #337ab7; border-color: #2e6da4 }
     button[data-option="primary"]:hover,
