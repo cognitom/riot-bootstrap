@@ -344,6 +344,125 @@ riot.tag('radio', '<button type="button" __disabled="{ opts.disabled }" data-sel
   
 });
 
+riot.tag('time-picker-popup', '<ul if="{ active }" riot-style="top: {top}px; left: {left}px"> <li each="{ hours }"> { hh % 2 ? \'&middot;\' : hh + \':00\' } </li> </ul> <ol if="{ active }" riot-style="top: {top2}px; left: {left2}px" class="{ roundLeft: roundLeft }"> <li onmouseover="{ mouseover(\'00\') }" onclick="{ click(\'00\') }">{ hh }:{ mm }</li> <li onmouseover="{ mouseover(\'05\') }" onclick="{ click(\'05\') }">&middot;</li> <li onmouseover="{ mouseover(\'10\') }" onclick="{ click(\'10\') }">10</li> <li onmouseover="{ mouseover(\'15\') }" onclick="{ click(\'15\') }">&middot;</li> <li onmouseover="{ mouseover(\'20\') }" onclick="{ click(\'20\') }">20</li> <li onmouseover="{ mouseover(\'25\') }" onclick="{ click(\'25\') }">&middot;</li> <li onmouseover="{ mouseover(\'30\') }" onclick="{ click(\'30\') }">30</li> <li onmouseover="{ mouseover(\'35\') }" onclick="{ click(\'35\') }">&middot;</li> <li onmouseover="{ mouseover(\'40\') }" onclick="{ click(\'40\') }">40</li> <li onmouseover="{ mouseover(\'45\') }" onclick="{ click(\'45\') }">&middot;</li> <li onmouseover="{ mouseover(\'50\') }" onclick="{ click(\'50\') }">50</li> <li onmouseover="{ mouseover(\'55\') }" onclick="{ click(\'55\') }">&middot;</li> </ol>', 'time-picker-popup ul, [riot-tag="time-picker-popup"] ul{ position: absolute; z-index: 1000; float: left; padding: 10px 0; margin: 0; font-size: 14px; text-align: left; list-style: none; background-color: #fff; background-clip: padding-box; border: 1px solid #ccc; border: 1px solid rgba(0, 0, 0, .15); border-radius: 4px; box-shadow: 0 6px 12px rgba(0, 0, 0, .175); } time-picker-popup ul > li, [riot-tag="time-picker-popup"] ul > li{ padding: 0 15px; line-height: 16px; color: #666; position: relative; text-align: center; } time-picker-popup ol, [riot-tag="time-picker-popup"] ol{ position: absolute; white-space: nowrap; z-index: 1001; list-style: none; padding: 3px 13px; margin: 0; color: white; text-decoration: none; background-color: #3879d9; cursor: pointer; border-top-right-radius: 4px; border-bottom-right-radius: 4px; box-shadow: 0 3px 6px rgba(0, 0, 0, .175); transition: left .2s; } time-picker-popup ol.roundLeft, [riot-tag="time-picker-popup"] ol.roundLeft{ border-top-left-radius: 4px; border-bottom-left-radius: 4px; } time-picker-popup ol > li, [riot-tag="time-picker-popup"] ol > li{ display: inline-block; margin: 0; padding: 0 2px; min-width: 13px; text-align: center; line-height: 24px; border-radius: 4px; } time-picker-popup ol > li + li, [riot-tag="time-picker-popup"] ol > li + li{ margin-left: -4px; color: rgba(255,255,255,.65) } time-picker-popup ol > li:hover, [riot-tag="time-picker-popup"] ol > li:hover{ background-color: #528ce1; color: white; }', function(opts) {
+    var self = this
+    var ITEM_HEIGHT = 16
+    var popupWidth
+    self.hours = [
+      '00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11',
+      '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23']
+      .map(function(hh) {
+        return {
+          hh: hh,
+          mm: '00'
+        }
+      })
+    self.hh = opts.value.split(':')[0]
+    self.mm = opts.value.split(':')[1]
+    self.top = 0
+    self.left = 0
+    self.top2 = 0
+    self.left2 = 0
+    self.roundLeft = false
+    self.active = false
+
+    this.activate = function(top, left) {
+      self.update({
+        active: true,
+        top:  top,
+        left: left,
+        top2: (top + self.hh * ITEM_HEIGHT + 4),
+        left2: left,
+        roundLeft: false
+      })
+      popupWidth = self.root.querySelector('ul').clientWidth
+      var w = self.root.querySelector('ol').clientWidth
+      if (self.left2 + w > document.body.clientWidth)
+        self.update({
+          left2: document.body.clientWidth - w -5,
+          roundLeft: true
+        })
+      document.addEventListener('mousemove', self.mousemove)
+      document.addEventListener('click', self.deactivate, true)
+    }.bind(this);
+
+    this.deactivate = function() {
+      self.update({
+        active: false
+      })
+      document.removeEventListener('mousemove', self.mousemove)
+      document.removeEventListener('click', self.deactivate)
+    }.bind(this);
+
+    this.mousemove = function(e) {
+      var x = document.body.scrollLeft + e.clientX
+      var y = document.body.scrollTop + e.clientY
+      if (x - self.left < 0 || popupWidth < x - self.left) return
+
+      var hh = Math.floor((y - self.top - 8) / ITEM_HEIGHT)
+      hh = hh < 0 ? 0
+        : hh > 23 ? 23
+        : hh
+      if (hh == self.hh) return
+      self.hh = hh < 10 ? '0' + hh : hh + ''
+      self.top2 = self.top + hh * ITEM_HEIGHT + 4
+      self.update()
+    }.bind(this);
+
+    this.mouseover = function(mm) {
+      return function(e) {
+        self.mm = mm
+      }
+    }.bind(this);
+
+    this.click = function(mm) {
+      return function(e) {
+        self.trigger('change', self.hh + ':' + self.mm)
+        self.deactivate()
+      }
+    }.bind(this);
+  
+});
+
+riot.tag('time-picker', '<btn onpush="{ push }">{ value }</btn>', 'time-picker, [riot-tag="time-picker"]{ display: inline-block; background-color: white; }', function(opts) {
+    var self = this
+    var popupDom = document.createElement('div')
+    self.value = opts.value || '00:00'
+    self.popup = riot.mount(popupDom, 'time-picker-popup', opts)[0]
+
+    this.push = function(e) {
+      var top = self.root.offsetTop - 4 - self.value.split(':')[0] * 16
+      var left = self.root.offsetLeft - 3
+      if (top < 5) top = 5
+      self.popup.activate(top, left)
+    }.bind(this);
+
+    self.on('mount', function() {
+      document.body.appendChild(popupDom)
+    })
+
+    self.on('unmount', function() {
+      document.body.removeChild(popupDom)
+    })
+
+    self.popup.on('change', function(newValue) {
+      self.update({
+        value: newValue
+      })
+      self.trigger('change', newValue)
+    })
+
+    if (opts.onchange) {
+      self.on('change', opts.onchange)
+      self.on('change', function() {
+        self.updateCaller(opts.onchange)
+      })
+    }
+
+    self.mixin('parentScope')
+  
+});
+
 /*!
  * Parent Scope mixin
  * A part of Riot Bootstrap

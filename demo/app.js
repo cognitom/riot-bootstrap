@@ -69,7 +69,21 @@ riot.tag('app-radio-group', '<h2>Radio groups</h2> <p>Group a series of radio bu
   
 });
 
-riot.tag('app', '<header> <h1>Riot Bootstrap</h1> <h2>Bootstrap-like Components for Riot.js</h2> <p>CURRENTLY EXPERIMENTAL</p> </header> <article> <h2>Getting started</h2> <p><a href="https://github.com/cognitom/riot-bootstrap">See our repo</a> on GitHub.</p> </article> <app-btn></app-btn> <app-btn-group></app-btn-group> <app-dropdown></app-dropdown> <app-radio-group></app-radio-group> <app-calendar></app-calendar> <app-input-img></app-input-img> <footer> <p> Maintained by <a href="https://github.com/cognitom">@cognitom</a> with the help of our contributors.<br> Code licensed under MIT, documentation under CC BY 3.0 </p> </footer>', 'app, [riot-tag="app"]{ display: block; } app code, [riot-tag="app"] code{ font-family: Menlo, Monaco, Consolas, "Courier New", monospace; } app code, [riot-tag="app"] code{ padding: 2px 4px; font-size: 90%; color: #c7254e; background-color: #f9f2f4; border-radius: 4px; } app header, [riot-tag="app"] header{ background: #333; color: white; padding: 2em; } app > *:not(header):not(footer), [riot-tag="app"] > *:not(header):not(footer){ padding: 2em; border-bottom: 1px solid #eee; } app h2, [riot-tag="app"] h2{ margin: 0; } app section, [riot-tag="app"] section{ border: 1px solid #ddd; padding: 1em; border-top-left-radius: .25em; border-top-right-radius: .25em; } app section + highlight, [riot-tag="app"] section + highlight{ border-top: none; border-top-left-radius: 0; border-top-right-radius: 0; } app section p.comment, [riot-tag="app"] section p.comment{ margin: .5em 0 0; color: #999; font-size: 95%; } app footer, [riot-tag="app"] footer{ font-size: 90%; line-height: 1.4em; color: #999; padding: 2em; }', function(opts) {
+riot.tag('app-time-picker', '<h2>Time picker</h2> <p>Use the <code>&lt;time-picker&gt;</code> elements.</p> <section> <time-picker value="12:00"></time-picker> </section> <highlight> &lt;time-picker value="12:00" /&gt; </highlight>', 'app-time-picker, [riot-tag="app-time-picker"]{ display: block; }', function(opts) {
+    this.message = 'Click me!'
+    this.isSending = false
+
+    this.push = function(e) {
+      this.message = 'Thanks.'
+    }.bind(this);
+
+    this.send = function(e) {
+      this.isSending = true
+    }.bind(this);
+  
+});
+
+riot.tag('app', '<header> <h1>Riot Bootstrap</h1> <h2>Bootstrap-like Components for Riot.js</h2> <p>CURRENTLY EXPERIMENTAL</p> </header> <article> <h2>Getting started</h2> <p><a href="https://github.com/cognitom/riot-bootstrap">See our repo</a> on GitHub.</p> </article> <app-btn></app-btn> <app-btn-group></app-btn-group> <app-dropdown></app-dropdown> <app-radio-group></app-radio-group> <app-time-picker></app-time-picker> <app-calendar></app-calendar> <app-input-img></app-input-img> <footer> <p> Maintained by <a href="https://github.com/cognitom">@cognitom</a> with the help of our contributors.<br> Code licensed under MIT, documentation under CC BY 3.0 </p> </footer>', 'app, [riot-tag="app"]{ display: block; } app code, [riot-tag="app"] code{ font-family: Menlo, Monaco, Consolas, "Courier New", monospace; } app code, [riot-tag="app"] code{ padding: 2px 4px; font-size: 90%; color: #c7254e; background-color: #f9f2f4; border-radius: 4px; } app header, [riot-tag="app"] header{ background: #333; color: white; padding: 2em; } app > *:not(header):not(footer), [riot-tag="app"] > *:not(header):not(footer){ padding: 2em; border-bottom: 1px solid #eee; } app h2, [riot-tag="app"] h2{ margin: 0; } app section, [riot-tag="app"] section{ border: 1px solid #ddd; padding: 1em; border-top-left-radius: .25em; border-top-right-radius: .25em; } app section + highlight, [riot-tag="app"] section + highlight{ border-top: none; border-top-left-radius: 0; border-top-right-radius: 0; } app section p.comment, [riot-tag="app"] section p.comment{ margin: .5em 0 0; color: #999; font-size: 95%; } app footer, [riot-tag="app"] footer{ font-size: 90%; line-height: 1.4em; color: #999; padding: 2em; }', function(opts) {
 
 
 });

@@ -1,0 +1,50 @@
+<time-picker>
+
+  <btn onpush={ push }>{ value }</btn>
+
+  <script>
+    var self = this
+    var popupDom = document.createElement('div')
+    self.value = opts.value || '00:00'
+    self.popup = riot.mount(popupDom, 'time-picker-popup', opts)[0]
+
+    push (e) {
+      var top = self.root.offsetTop - 4 - self.value.split(':')[0] * 16
+      var left = self.root.offsetLeft - 3
+      if (top < 5) top = 5
+      self.popup.activate(top, left)
+    }
+
+    self.on('mount', function() {
+      document.body.appendChild(popupDom)
+    })
+
+    self.on('unmount', function() {
+      document.body.removeChild(popupDom)
+    })
+
+    self.popup.on('change', function(newValue) {
+      self.update({
+        value: newValue
+      })
+      self.trigger('change', newValue)
+    })
+
+    if (opts.onchange) {
+      self.on('change', opts.onchange)
+      self.on('change', function() {
+        self.updateCaller(opts.onchange)
+      })
+    }
+
+    self.mixin('parentScope')
+  </script>
+
+  <style scoped>
+    :scope {
+      display: inline-block;
+      background-color: white;
+    }
+  </style>
+
+</time-picker>
