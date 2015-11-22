@@ -9,8 +9,11 @@
     self.popup = riot.mount(popupDom, 'time-picker-popup', opts)[0]
 
     push (e) {
-      var top = self.root.offsetTop - 4 - self.value.split(':')[0] * 16
-      var left = self.root.offsetLeft - 3
+      var rect = self.root.getBoundingClientRect()
+      var y = rect.top + document.body.scrollTop
+      var x = rect.left + document.body.scrollLeft
+      var top = y - 4 - self.value.split(':')[0] * 16
+      var left = x - 3
       if (top < 5) top = 5
       self.popup.activate(top, left)
     }
