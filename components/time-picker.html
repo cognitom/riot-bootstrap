@@ -16,6 +16,7 @@
     }
 
     self.on('mount', function() {
+      self.root.value = self.value
       document.body.appendChild(popupDom)
     })
 
@@ -27,6 +28,7 @@
       self.update({
         value: newValue
       })
+      self.root.value = newValue
       self.trigger('change', newValue)
     })
 

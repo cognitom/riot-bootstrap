@@ -438,6 +438,7 @@ riot.tag('time-picker', '<btn onpush="{ push }">{ value }</btn>', 'time-picker, 
     }.bind(this);
 
     self.on('mount', function() {
+      self.root.value = self.value
       document.body.appendChild(popupDom)
     })
 
@@ -449,6 +450,7 @@ riot.tag('time-picker', '<btn onpush="{ push }">{ value }</btn>', 'time-picker, 
       self.update({
         value: newValue
       })
+      self.root.value = newValue
       self.trigger('change', newValue)
     })
 
