@@ -357,8 +357,9 @@ riot.tag('time-picker-popup', '<ul if="{ active }" riot-style="top: {top}px; lef
           mm: '00'
         }
       })
-    self.hh = opts.value.split(':')[0]
-    self.mm = opts.value.split(':')[1]
+    self.value = opts.value || '00:00'
+    self.hh = self.value.split(':')[0]
+    self.mm = self.value.split(':')[1]
     self.top = 0
     self.left = 0
     self.top2 = 0
