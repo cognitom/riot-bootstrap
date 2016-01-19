@@ -5,16 +5,16 @@
   <p>Group a series of radio buttons together on a single line. </p>
 
   <section>
-    <radio-group name="position" value={ data.position } onchange={ change }>
+    <radio-group name="position" value={ position } onchange={ change }>
       <radio value="first">First</radio>
       <radio value="second">Second</radio>
       <radio value="third">Third</radio>
     </radio-group>
-    <p class="comment">Your selection is <strong>{ data.position }</strong>.</p>
+    <p class="comment">Your selection is <strong>{ position }</strong>.</p>
   </section>
 
   <highlight>
-    &lt;radio-group name=\{ position } value=\{ data.position } onchange=\{ change }&gt;<br>
+    &lt;radio-group name=\{ position } value=\{ position } onchange=\{ change }&gt;<br>
     &nbsp;&lt;radio value="first"&gt;First&lt;/radio&gt;<br>
     &nbsp;&lt;radio value="second"&gt;Second&lt;/radio&gt;<br>
     &nbsp;&lt;radio value="third"&gt;Third&lt;/radio&gt;<br>
@@ -22,12 +22,10 @@
   </highlight>
 
   <script>
-    this.data = { position: 'first' }
+    this.position = 'first'
 
-    change () {
-      this.data = {
-        position: this.position.value
-      }
+    this.change = e => {
+      this.position = e.target.value
     }
   </script>
 

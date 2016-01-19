@@ -1,6 +1,6 @@
 <app-calendar>
 
-  <h2>Calendar</h2>
+  <!--<h2>Calendar</h2>
 
   <p>Calendar control. You can choose a single day:</p>
 
@@ -36,7 +36,7 @@
     &lt;calendar lang="zh"&gt;&lt;/calendar&gt;<br>
   </highlight>
 
-  <h3>Popup (Datepicker)</h3>
+  <h3>Popup (Datepicker)</h3>-->
 
   <section>
     <btn-group>
@@ -57,9 +57,9 @@
   </highlight>
 
   <script>
-    self.date = '2015-09-01'
-    select (arg) {
-      self.date = arg
+    this.date = '2015-09-01'
+    this.select = e => {
+      this.date = e.target.value
     }
   </script>
 

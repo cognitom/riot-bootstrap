@@ -5,7 +5,7 @@
   <p>Missing input element for image.</p>
 
   <section>
-    <input-img placeholder="https://avatars1.githubusercontent.com/u/16032?v=3&s=100" onchange={ change } />
+    <input-img value={ image } onchange={ change } />
     <p class="comment">{ comment }</p>
   </section>
 
@@ -14,9 +14,12 @@
   </highlight>
 
   <script>
+    this.image = "https://avatars1.githubusercontent.com/u/16032?v=3&s=100"
     this.comment = 'Drag your image here!'
 
-    change () {
+    this.change = e => {
+      this.image = e.target.value
+      console.log(this.image)
       this.comment = 'Image dropped!'
     }
   </script>

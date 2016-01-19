@@ -6,26 +6,26 @@
 
   <section>
     <btn-group>
-      <btn onpush={ pushL }>Left</btn>
-      <btn onpush={ pushM }>Middle</btn>
-      <btn onpush={ pushR }>Right</btn>
+      <btn onclick={ clickL }>Left</btn>
+      <btn onclick={ clickM }>Middle</btn>
+      <btn onclick={ clickR }>Right</btn>
     </btn-group>
     <btn-group>
-      <btn onpush={ toggle } disabled={ isOn }>Turn On</btn>
-      <btn onpush={ toggle } disabled={ !isOn }>Turn Off</btn>
+      <btn onclick={ toggle } disabled={ isOn }>Turn On</btn>
+      <btn onclick={ toggle } disabled={ !isOn }>Turn Off</btn>
     </btn-group>
     <p class="comment">{ comment }</p>
   </section>
 
   <highlight>
     &lt;btn-group&gt;<br>
-    &nbsp;&lt;btn onpush=\{ pushL }&gt;Left&lt;/btn&gt;<br>
-    &nbsp;&lt;btn onpush=\{ pushM }&gt;Middle&lt;/btn&gt;<br>
-    &nbsp;&lt;btn onpush=\{ pushR }&gt;Right&lt;/btn&gt;<br>
+    &nbsp;&lt;btn onclick=\{ clickL }&gt;Left&lt;/btn&gt;<br>
+    &nbsp;&lt;btn onclick=\{ clickM }&gt;Middle&lt;/btn&gt;<br>
+    &nbsp;&lt;btn onclick=\{ clickR }&gt;Right&lt;/btn&gt;<br>
     &lt;/btn-group&gt;<br>
     &lt;btn-group&gt;<br>
-    &nbsp;&lt;btn onpush=\{ toggle } disabled=\{ isOn }&gt;Turn Off&lt;/btn&gt;<br>
-    &nbsp;&lt;btn onpush=\{ toggle } disabled=\{ !isOn }&gt;Turn On&lt;/btn&gt;<br>
+    &nbsp;&lt;btn onclick=\{ toggle } disabled=\{ isOn }&gt;Turn Off&lt;/btn&gt;<br>
+    &nbsp;&lt;btn onclick=\{ toggle } disabled=\{ !isOn }&gt;Turn On&lt;/btn&gt;<br>
     &lt;/btn-group&gt;
   </highlight>
 
@@ -33,17 +33,16 @@
     this.comment = 'Click me!'
     this.isOn = false
 
-    pushL (e) {
+    this.clickL = e => {
       this.comment = 'Left button was clicked.'
     }
-    pushM (e) {
+    this.clickM = e => {
       this.comment = 'Middle button was clicked.'
     }
-    pushR (e) {
+    this.clickR = e => {
       this.comment = 'Right button was clicked.'
     }
-
-    toggle (e) {
+    this.toggle = e => {
       this.isOn = !this.isOn
     }
   </script>

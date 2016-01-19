@@ -24,7 +24,7 @@
       Maintained by <a href="https://github.com/cognitom">@cognitom</a> with the help of our contributors.<br>
       Code licensed under MIT, documentation under CC BY 3.0
     </p>
-  </footer>
+  </footer>-->
 
   <style scoped>
     :scope {

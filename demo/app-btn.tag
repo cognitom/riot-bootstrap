@@ -41,12 +41,12 @@
   <h3>Events</h3>
 
   <section>
-    <btn onpush={ push }>{ message }</btn>
-    <btn onpush={ send } disabled={ isSending }>Send something!</btn>
+    <btn onclick={ click }>{ message }</btn>
+    <btn onclick={ send } disabled={ isSending }>Send something!</btn>
   </section>
   <highlight>
-    &lt;btn onpush=\{ push }&gt;\{ message }&lt;/btn&gt;<br>
-    &lt;btn onpush=\{ send } disabled=\{ isSending }&gt;\Send something!&lt;/btn&gt;<br>
+    &lt;btn onclick=\{ click }&gt;\{ message }&lt;/btn&gt;<br>
+    &lt;btn onclick=\{ send } disabled=\{ isSending }&gt;\Send something!&lt;/btn&gt;<br>
   </highlight>
 
   <h3>Options</h3>
@@ -123,11 +123,11 @@
     this.message = 'Click me!'
     this.isSending = false
 
-    push (e) {
+    this.click = e => {
       this.message = 'Thanks.'
     }
 
-    send (e) {
+    this.send = e => {
       this.isSending = true
     }
   </script>
