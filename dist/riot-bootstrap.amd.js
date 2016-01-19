@@ -1,5 +1,4 @@
-(function (riot) {
-	'use strict';
+define(['riot'], function (riot) { 'use strict';
 
 	riot = 'default' in riot ? riot['default'] : riot;
 
@@ -623,4 +622,4 @@
 	  });
 	}, '{ }');
 
-}(riot));
+});
