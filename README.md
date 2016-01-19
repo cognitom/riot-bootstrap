@@ -1,11 +1,16 @@
 # Riot Bootstrap
 
-[WIP] Bootstrap-like Components for Riot.js
+Bootstrap-like Components for Riot.js
 
 - **Readable**: no more cluttered class names!
 - **Stand-alone**: independent from Bootstrap
 - **Modular**: one file, one component
 - **Packaged**: HTML/CSS/JavaScript are packaged into one file
+
+## v1.0 API Changed
+
+- Use `onclick` event handler on `<btn>`, instead of `onpush`
+- `onselect` event handler on `<menu>` now passes an event object instead of a selected string.
 
 ## Demo
 
@@ -85,13 +90,13 @@ In short, use the tags as just like HTML: `<btn>`, `<btn-group>`, `<menu>`...etc
 </app>
 ```
 
-### 3) Use with Browserify (best)
+### 3) Use with rollup (best)
 
 - Install `riot-bootstrap` via NPM.
 - Create the main script.
 - Prepare your tag files.
-- Browserify with [riotify](https://github.com/jhthorsen/riotify).
-- Load the browserified script into HTML.
+- [Rollup](http://rollupjs.org/).
+- Load the compiled script into HTML.
 
 ```bash
 $ npm install --save riot-bootstrap
@@ -99,28 +104,24 @@ $ npm install --save riot-bootstrap
 
 ```javascript
 // app.js
-var riot = require 'riot'
-require 'riot-bootstrap'
-require './app.html' // and other components
+import riot from 'riot'
+import 'riot-bootstrap'
+import './app.tag' // and other components
 riot.mount('app')
 ```
 
 ```html
-// app.html
+// app.tag
 <app>
   <section>
     <btn onclick={ click }>Say 'Hi!'</btn>
   </section>
   <script>
-    click (e) {
+    this.click = e => {
       alert('Hi!')
     }
   </script>
 </app>
-```
-
-```bash
-$ browserify -t [ riotify --ext html ] app.js
 ```
 
 ```html
@@ -199,6 +200,7 @@ There is some limitation:
 - v0.3.1: Use mixin initializer
 - v0.3.2: Add `href` attribute to `btn` tag
 - v0.3.3: Fix the bug [#10](https://github.com/cognitom/riot-bootstrap/issues/10)
+- v1.0.0: Completely rewrites into ES6!, supports `domEvent`, makes `parentScope` external. Add: `<calendar>` and `<time-picker>`.
 
 ## TODO:
 
