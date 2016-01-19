@@ -1,3 +1,5 @@
+import { parentScope } from 'riot-mixin-pack'
+
 <radio>
 
   <button
@@ -9,20 +11,17 @@
     ><input type="radio" checked={ selected } onclick={ click }> <yield/></button>
 
   <script>
-    this.selected = (opts.value == this.parent.value)
+    this.mixin(parentScope)
 
-    check () {
-      this.selected = (opts.value == this.parent.value)
-      this.update()
+    this.click = e => {
+      e.stopPropagation()
+      this.selected = true
+      this.trigger('radioClicked', opts.value || this.root.innerText)
     }
 
-    click (e) {
-      if (this.selected) return
-      if (this.parent && this.parent.set) this.parent.set(opts.value || this.root.innerText)
-      else this.selected = true
-    }
-
-    this.parent.on('change', this.check)
+    this.on('update', () => {
+      this.selected = opts.value == this.parent.value
+    })
   </script>
 
   <style scoped>

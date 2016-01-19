@@ -1,9 +1,11 @@
+import { parentScope } from 'riot-mixin-pack'
+
 <menu-header>
 
   <yield/>
 
   <script>
-    this.mixin('parentScope')
+    this.mixin(parentScope)
   </script>
 
   <style scoped>

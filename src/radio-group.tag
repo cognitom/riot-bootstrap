@@ -1,21 +1,28 @@
+import { domEvent, syncEvent, parentScope } from 'riot-mixin-pack'
+
 <radio-group>
 
   <yield/>
 
   <script>
-    this.value = opts.value
+    this.mixin(parentScope).mixin(domEvent).mixin(syncEvent)
 
-    set (value) {
-      this.value = value
-      this.root.value = value
-      this.trigger('change', value)
-      if (opts.onchange){
-        opts.onchange(value)
-        this.updateCaller(opts.onchange)
+    const
+      radioSelect = value => {
+        this.root.value = this.value = value
+        this.skipSync()
+        this.update()
+        this.triggerDomEvent('change')
       }
-    }
-    
-    this.mixin('parentScope')
+
+    this
+      .on('mount', () => {
+        const radios = this.tags['radio'] || []
+        radios.forEach(radio => radio.on('radioClicked', radioSelect))
+      })
+      .on('sync', () => {
+        this.value = opts.value
+      })
   </script>
 
   <style scoped>

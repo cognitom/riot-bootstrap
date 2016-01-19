@@ -1,3 +1,5 @@
+import { domEvent, parentScope } from 'riot-mixin-pack'
+
 <btn>
 
   <button
@@ -6,38 +8,36 @@
     data-option={ opts.option }
     data-size={ opts.size }
     data-active={ active ? 'yes' : 'no' }
-    onclick={ push }
+    onclick={ click }
     ><yield/></button>
 
   <script>
+    this.mixin(parentScope).mixin(domEvent)
     this.disabled = undefined
+    const binded = opts.toggle || ''
 
-    culculateProperties (e) {
-      this.disabled =
-        opts.hasOwnProperty('__disabled') ? opts.__disabled === true :
-        opts.hasOwnProperty('disabled') ? opts.disabled === '' || opts.disabled === 'disabled':
-        false
-      this.active =
-        opts.hasOwnProperty('active') ? opts.active === '' || opts.active === 'active' || opts.active === true:
-        false
-    }
-    push (e) {
+    this.click = e => {
+      e.stopPropagation()
       if (this.disabled) return
-      if (this.parent && opts.toggle) this.parent.trigger('inner-btn-toggle')
+      if (this.parent && binded) this.parent.trigger('inner-btn-toggle')
       if (opts.href) {
         e.preventUpdate = true
         location.href = opts.href
         return
       }
-      if (opts.onpush){
-        e.preventUpdate = true
-        opts.onpush(e)
-        this.updateCaller(opts.onpush)
-      }
+      this.triggerDomEvent('click')
     }
 
-    this.on('update', this.culculateProperties)
-    this.mixin('parentScope')
+    this.on('update', e => {
+      this.disabled = opts.hasOwnProperty('__disabled')
+        ? opts.__disabled === true
+        : opts.hasOwnProperty('disabled')
+          ? opts.disabled === '' || opts.disabled === 'disabled'
+          : false
+      this.active = opts.hasOwnProperty('active')
+        ? opts.active === '' || opts.active === 'active' || opts.active === true
+        : false
+    })
   </script>
 
   <style scoped>
