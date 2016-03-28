@@ -17,7 +17,7 @@ import { domEvent, syncEvent, parentScope } from 'riot-mixin-pack'
         setTimeout(() => {
           document.addEventListener('touchstart', menuClose, false)
           document.addEventListener('click', menuClose, false)
-        }, 1)
+        }, 100)
       },
       menuClose = e => {
         opened = false
