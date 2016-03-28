@@ -26,7 +26,7 @@
     </btn-group>
 
     <p class="comment">Selected: <strong>{ selected }</strong></p>
-  </section><!--
+  </section>
 
   <highlight>
     &lt;btn-group&gt;<br>
@@ -155,7 +155,7 @@
     &nbsp;&nbsp;...<br>
     &nbsp;&lt;/menu&gt;<br>
     &lt;/btn-group&gt;
-  </highlight>-->
+  </highlight>
 
   <script>
     this.selected = 'none'
