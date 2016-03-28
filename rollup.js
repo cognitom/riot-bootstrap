@@ -4,8 +4,7 @@ const
   json         = require('rollup-plugin-json'),
   npm          = require('rollup-plugin-npm'),
   commonjs     = require('rollup-plugin-commonjs'),
-  createFilter = require('rollup-pluginutils').createFilter,
-  compiler     = require('riot-compiler')
+  riot         = require('rollup-plugin-riot'),
   changeCase   = require('change-case'),
   packageName  = require('./package.json').name
 
@@ -13,7 +12,7 @@ rollup
   .rollup({
     entry: 'src/index.js',
     external: ['riot'],
-    plugins: [riot(), json(), npm({ jsnext: true }), commonjs(), babel()]
+    plugins: [riot(), json(), npm({ jsnext: true }), babel()]
   })
   .then(bundle => {
     bundle.write({
@@ -47,17 +46,3 @@ rollup
   .catch(error => {
     console.error(error)
   })
-
-/**
- * Simple inline-plugin for Riot.js
- */
-function riot() {
-  const frag = "import riot from 'riot';"
-  const filter = createFilter('**/*.tag') // transform tag files only
-  return {
-    transform (code, id) {
-      if (!filter(id)) return null
-      return frag + compiler.compile(code)
-    }
-  }
-}
