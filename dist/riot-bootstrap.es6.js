@@ -1,5 +1,49 @@
 import riot from 'riot';
 
+var domEvent = {
+  /**
+   * Trigger Event on DOM (root element of the tag)
+   * @param { string } eventName - the name of the event. ex: 'change'
+   */
+  triggerDomEvent: function triggerDomEvent(eventName) {
+    var _this = this;
+
+    setTimeout(function () {
+      var e;
+      if (typeof Event == 'function') {
+        // Standard browsers
+        e = new Event(eventName);
+      } else {
+        // IE 9 ~ 11
+        e = document.createEvent('Event');
+        e.initEvent(eventName, true, true);
+      }
+      /** dispatch an event */
+      _this.root.dispatchEvent(e);
+    }, 0);
+    return this; // return this for method chain
+  }
+};
+
+var syncEvent = {
+  /** Init mixin on each tag */
+  init: function init() {
+    var _this = this;
+
+    this._shouldSyncFromOpts = true;
+    this.on('update', function () {
+      if (_this._shouldSyncFromOpts) _this.trigger('sync');
+      _this._shouldSyncFromOpts = true;
+    });
+  },
+
+  /** Skip sync event once */
+  skipSync: function skipSync() {
+    this._shouldSyncFromOpts = false;
+    return this; // return this for method chain
+  }
+};
+
 /** Return all property names */
 function getAllPropertyNames(obj) {
   var arr = [];
@@ -41,13 +85,14 @@ var parentScope = {
     });
     /** Inherit the properties from parents on each update */
     this.on('update', function () {
+      var ignoreProps = ['root', 'triggerDomEvent'];
       getAllPropertyNames(_this.parent)
-      // TODO: Needs to remove ` && key != 'triggerDomEvent'`
+      // TODO:
       //   Skipping 'triggerDomEvent' is a temporal workaround.
-      //   In some cases function on the child is overrode.
+      //   In some cases function on the child would be overriden.
       //   This issue needs more study...
       .filter(function (key) {
-        return ! ~_this._ownPropKeys.indexOf(key) && key != 'triggerDomEvent';
+        return ! ~_this._ownPropKeys.concat(ignoreProps).indexOf(key);
       }).forEach(function (key) {
         _this[key] = typeof _this.parent[key] != 'function' || _this.parent[key]._inherited ? _this.parent[key] : hook(_this.parent, key);
       });
@@ -57,50 +102,6 @@ var parentScope = {
         _this.opts[key] = typeof _this.parent.opts[key] != 'function' || _this.parent.opts[key]._inherited ? _this.parent.opts[key] : hook(_this.parent, key);
       });
     });
-  }
-};
-
-var syncEvent = {
-  /** Init mixin on each tag */
-  init: function init() {
-    var _this = this;
-
-    this._shouldSyncFromOpts = true;
-    this.on('update', function () {
-      if (_this._shouldSyncFromOpts) _this.trigger('sync');
-      _this._shouldSyncFromOpts = true;
-    });
-  },
-
-  /** Skip sync event once */
-  skipSync: function skipSync() {
-    this._shouldSyncFromOpts = false;
-    return this; // return this for method chain
-  }
-};
-
-var domEvent = {
-  /**
-   * Trigger Event on DOM (root element of the tag)
-   * @param { string } eventName - the name of the event. ex: 'change'
-   */
-  triggerDomEvent: function triggerDomEvent(eventName) {
-    var _this = this;
-
-    setTimeout(function () {
-      var e;
-      if (typeof Event == 'function') {
-        // Standard browsers
-        e = new Event(eventName);
-      } else {
-        // IE 9 ~ 11
-        e = document.createEvent('Event');
-        e.initEvent(eventName, true, true);
-      }
-      /** dispatch an event */
-      _this.root.dispatchEvent(e);
-    }, 0);
-    return this; // return this for method chain
   }
 };
 

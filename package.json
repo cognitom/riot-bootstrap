@@ -1,6 +1,6 @@
 {
   "name": "riot-bootstrap",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Bootstrap-like Components for Riot.js",
   "files": [
     "dist"
@@ -22,7 +22,7 @@
     "bootstrap"
   ],
   "dependencies": {
-    "riot-mixin-pack": "^0.1.6",
+    "riot-mixin-pack": "^0.1.7",
     "sometime-riot": "^1.0.5"
   },
   "devDependencies": {
@@ -56,7 +56,7 @@
     "deploy": "gh-pages -d dist",
     "pretest": "npm run build",
     "test": "npm run eslint && npm run karma",
-    "eslint": "eslint -c ./.eslintrc src/*.js",
+    "eslint": "eslint src/*.js",
     "karma": "karma start test/karma.conf.js",
     "server": "browser-sync start --files 'dist/riot-bootstrap.js, dist/demo.js, dist/index.html' --server 'dist/'",
     "watch": "chokidar 'src/*' 'demo/*' -c 'npm run build'",
