@@ -500,7 +500,7 @@ riot.tag2('menu-item', '<yield></yield>', 'menu-item { display: block; padding: 
   });
 });
 
-riot.tag2('menu', '<yield></yield>', 'menu,[riot-tag="menu"],[data-is="menu"]{ position: absolute; top: 100%; left: 0; z-index: 1000; display: none; float: left; min-width: 160px; padding: 5px 0; margin: 2px 0 0; font-size: 14px; text-align: left; list-style: none; background-color: #fff; background-clip: padding-box; border: 1px solid #ccc; border: 1px solid rgba(0, 0, 0, .15); border-radius: 4px; box-shadow: 0 6px 12px rgba(0, 0, 0, .175); }', '', function (opts) {
+riot.tag2('menu', '<yield></yield>', 'menu,[riot-tag="menu"],[data-is="menu"]{ position: absolute; top: 100%; left: 0; z-index: 1000; display: none; float: left; min-width: 160px; padding: 5px 0; margin: 2px 0 0; font-size: 14px; text-align: left; list-style: none; background-color: #fff; background-clip: padding-box; border: 1px solid #ccc; border: 1px solid rgba(0, 0, 0, .15); border-radius: 4px; box-shadow: 0 6px 12px rgba(0, 0, 0, .175); } menu[align="right"],[riot-tag="menu"][align="right"],[data-is="menu"][align="right"]{ left: auto; right: 0; }', '', function (opts) {
   var _this = this;
 
   this.mixin(parentScope).mixin(domEvent).mixin(syncEvent);

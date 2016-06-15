@@ -157,6 +157,44 @@
     &lt;/btn-group&gt;
   </highlight>
 
+  <h3>Right-aligned menu</h3>
+
+  <section>
+    <btn-group>
+      <btn>Default</btn>
+      <btn toggle="menu"><caret /></btn>
+      <menu align="right">
+        <menu-item value="action">Action</menu-item>
+        <menu-item value="another">Another action</menu-item>
+        <menu-item value="something">Something else here</menu-item>
+        <menu-divider></menu-divider>
+        <menu-item value="separated">Separated link</menu-item>
+      </menu>
+    </btn-group>
+
+    <btn-group>
+      <btn option="primary">Primary</btn>
+      <btn toggle="menu" option="primary"><caret /></btn>
+      <menu align="right">
+        <menu-item value="action">Action</menu-item>
+        <menu-item value="another">Another action</menu-item>
+        <menu-item value="something">Something else here</menu-item>
+        <menu-divider></menu-divider>
+        <menu-item value="separated">Separated link</menu-item>
+      </menu>
+    </btn-group>
+  </section>
+
+  <highlight>
+    &lt;btn-group&gt;<br>
+    &nbsp;&lt;btn&gt;Default&lt;/btn&gt;<br>
+    &nbsp;&lt;btn toggle="menu"&gt;&lt;caret /&gt;&lt;/btn&gt;<br>
+    &nbsp;&lt;menu align="right"&gt;<br>
+    &nbsp;&nbsp;...<br>
+    &nbsp;&lt;/menu&gt;<br>
+    &lt;/btn-group&gt;
+  </highlight>
+
   <script>
     this.selected = 'none'
     this.select = e => {

@@ -69,6 +69,11 @@ import { domEvent, syncEvent, parentScope } from 'riot-mixin-pack'
       border-radius: 4px;
       box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
     }
+
+    :scope[align="right"] {
+        left: auto;
+        right: 0;
+    }
   </style>
 
 </menu>
