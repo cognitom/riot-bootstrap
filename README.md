@@ -188,7 +188,7 @@ There is some limitation:
 
 - v0.0.1: Buttons, button groups, dropdowns
 - v0.1.0: Now transclusion is supported, thanks to [Riot 2.0.15](https://muut.com/riotjs/release-notes.html#2-0-15-em-apr-23-2015-em-)
-- v0.1.1: Radio sroups
+- v0.1.1: Radio groups
 - v0.1.2: Support Browserify and publish to NPM
 - v0.1.7: Fix: CommonJS issue
 - v0.2.0: Scope emulation. Related to https://github.com/muut/riotjs/issues/662
@@ -201,6 +201,7 @@ There is some limitation:
 - v0.3.2: Add `href` attribute to `btn` tag
 - v0.3.3: Fix the bug [#10](https://github.com/cognitom/riot-bootstrap/issues/10)
 - v1.0.0: Completely rewrites into ES6!, supports `domEvent`, makes `parentScope` external. Add: `<calendar>` and `<time-picker>`.
+- v1.1.0: `align="right"` option for `<menu>` by @cuu508
 
 ## TODO:
 

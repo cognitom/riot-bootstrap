@@ -92,12 +92,12 @@ var parentScope = {
       //   In some cases function on the child would be overriden.
       //   This issue needs more study...
       .filter(function (key) {
-        return ! ~_this._ownPropKeys.concat(ignoreProps).indexOf(key);
+        return !~_this._ownPropKeys.concat(ignoreProps).indexOf(key);
       }).forEach(function (key) {
         _this[key] = typeof _this.parent[key] != 'function' || _this.parent[key]._inherited ? _this.parent[key] : hook(_this.parent, key);
       });
       getAllPropertyNames(_this.parent.opts).filter(function (key) {
-        return ! ~_this._ownOptsKeys.indexOf(key) && key != 'riotTag';
+        return !~_this._ownOptsKeys.indexOf(key) && key != 'riotTag';
       }).forEach(function (key) {
         _this.opts[key] = typeof _this.parent.opts[key] != 'function' || _this.parent.opts[key]._inherited ? _this.parent.opts[key] : hook(_this.parent, key);
       });
