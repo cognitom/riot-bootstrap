@@ -1,6 +1,6 @@
 {
   "name": "riot-bootstrap",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Bootstrap-like Components for Riot.js",
   "files": [
     "dist"
