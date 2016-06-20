@@ -71,8 +71,8 @@ import { domEvent, syncEvent, parentScope } from 'riot-mixin-pack'
     }
 
     :scope[align="right"] {
-        left: auto;
-        right: 0;
+      left: auto;
+      right: 0;
     }
   </style>
 
