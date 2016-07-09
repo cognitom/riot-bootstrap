@@ -424,6 +424,42 @@ riot.tag2('calendar', '<table> <thead> <tr> <th><btn onclick="{prev}">&laquo;</b
 
 riot.tag2('caret', '', 'caret,[riot-tag="caret"],[data-is="caret"]{ display: inline-block; width: 0; height: 0; margin-left: 2px; vertical-align: middle; border-top: 4px dashed; border-right: 4px solid transparent; border-left: 4px solid transparent; }', '', function (opts) {});
 
+riot.tag2('inp', '<input type="text" placeholder="{opts.placeholder}" __disabled="{disabled}" data-option="{opts.option}" data-size="{opts.size}" value="{value}" onkeyup="{keyup}"></input>', 'inp input,[riot-tag="inp"] input,[data-is="inp"] input{ display: inline-block; padding: 6px 12px; margin-bottom: 0; font-size: 14px; font-weight: normal; line-height: 1.42857143; text-align: left; white-space: nowrap; background-image: none; border: 1px solid #ccc; border-radius: 4px; } inp input[disabled],[riot-tag="inp"] input[disabled],[data-is="inp"] input[disabled]{ background-color: #eee; } inp input[data-size="lg"],[riot-tag="inp"] input[data-size="lg"],[data-is="inp"] input[data-size="lg"]{ padding: 10px 16px; font-size: 18px; line-height: 1.3333333; border-radius: 6px; } inp input[data-size="sm"],[riot-tag="inp"] input[data-size="sm"],[data-is="inp"] input[data-size="sm"]{ padding: 5px 10px; font-size: 12px; line-height: 1.5; border-radius: 3px; } inp input[data-size="xs"],[riot-tag="inp"] input[data-size="xs"],[data-is="inp"] input[data-size="xs"]{ padding: 1px 5px; font-size: 12px; line-height: 1.5; border-radius: 3px; }', '', function (opts) {
+  var _this = this;
+
+  this.mixin(parentScope).mixin(domEvent);
+  this.disabled = undefined;
+
+  this.on('update', function (e) {
+    _this.disabled = opts.hasOwnProperty('__disabled') ? opts.__disabled === true : opts.hasOwnProperty('disabled') ? opts.disabled === '' || opts.disabled === 'disabled' : false;
+    _this.value = opts.value ? opts.value : '';
+  });
+
+  this.keyup = function (e) {
+    e.stopPropagation();
+    if (_this.disabled) return;
+    _this.root.value = _this.value = e.target.value;
+    _this.triggerDomEvent('keyup');
+  };
+});
+
+riot.tag2('inp-group', '<yield></yield>', 'inp-group,[riot-tag="inp-group"],[data-is="inp-group"]{ position: relative; display: inline-block; vertical-align: middle; border-collapse: separate; font-size: 0; } inp-group inp input,[riot-tag="inp-group"] inp input,[data-is="inp-group"] inp input,inp-group inp input[data-size="lg"],[riot-tag="inp-group"] inp input[data-size="lg"],[data-is="inp-group"] inp input[data-size="lg"],inp-group inp input[data-size="sm"],[riot-tag="inp-group"] inp input[data-size="sm"],[data-is="inp-group"] inp input[data-size="sm"],inp-group inp input[data-size="xs"],[riot-tag="inp-group"] inp input[data-size="xs"],[data-is="inp-group"] inp input[data-size="xs"]{ border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; } inp-group inp:first-child input,[riot-tag="inp-group"] inp:first-child input,[data-is="inp-group"] inp:first-child input{ border-top-left-radius: 4px; border-bottom-left-radius: 4px; } inp-group inp:last-child input,[riot-tag="inp-group"] inp:last-child input,[data-is="inp-group"] inp:last-child input{ border-top-right-radius: 4px; border-bottom-right-radius: 4px; } inp-group inp:first-child input[data-size="lg"],[riot-tag="inp-group"] inp:first-child input[data-size="lg"],[data-is="inp-group"] inp:first-child input[data-size="lg"]{ border-top-left-radius: 6px; border-bottom-left-radius: 6px; } inp-group inp:last-child input[data-size="lg"],[riot-tag="inp-group"] inp:last-child input[data-size="lg"],[data-is="inp-group"] inp:last-child input[data-size="lg"]{ border-top-right-radius: 6px; border-bottom-right-radius: 6px; } inp-group inp:first-child input[data-size="sm"],[riot-tag="inp-group"] inp:first-child input[data-size="sm"],[data-is="inp-group"] inp:first-child input[data-size="sm"]{ border-top-left-radius: 3px; border-bottom-left-radius: 3px; } inp-group inp:last-child input[data-size="sm"],[riot-tag="inp-group"] inp:last-child input[data-size="sm"],[data-is="inp-group"] inp:last-child input[data-size="sm"]{ border-top-right-radius: 3px; border-bottom-right-radius: 3px; } inp-group inp:first-child input[data-size="xs"],[riot-tag="inp-group"] inp:first-child input[data-size="xs"],[data-is="inp-group"] inp:first-child input[data-size="xs"]{ border-top-left-radius: 3px; border-bottom-left-radius: 3px; } inp-group inp:last-child input[data-size="xs"],[riot-tag="inp-group"] inp:last-child input[data-size="xs"],[data-is="inp-group"] inp:last-child input[data-size="xs"]{ border-top-right-radius: 3px; border-bottom-right-radius: 3px; }', '', function (opts) {
+  var _this = this;
+
+  this.mixin(parentScope);
+
+  this.on('update', function (e) {
+    var nodes = _this.root.querySelectorAll('inp, inp-group-addon');
+    for (var i = 0; i < nodes.length; i++) {
+      nodes[i].setAttribute('size', _this.opts.size);
+    }
+  });
+});
+
+riot.tag2('inp-group-addon', '<yield></yield>', 'inp-group-addon,[riot-tag="inp-group-addon"],[data-is="inp-group-addon"]{ position: relative; display: inline-block; padding: 6px 12px; margin: 0; font-size: 14px; font-weight: 400; line-height: 1.42857143; color: #555; text-align: center; background-color: #eee; border: 1px solid #ccc; } inp-group-addon[size="lg"],[riot-tag="inp-group-addon"][size="lg"],[data-is="inp-group-addon"][size="lg"]{ padding: 10px 16px; font-size: 18px; line-height: 1.3333333; } inp-group-addon[size="sm"],[riot-tag="inp-group-addon"][size="sm"],[data-is="inp-group-addon"][size="sm"]{ padding: 5px 10px; font-size: 12px; line-height: 1.5; } inp-group-addon[size="xs"],[riot-tag="inp-group-addon"][size="xs"],[data-is="inp-group-addon"][size="xs"]{ padding: 1px 5px; font-size: 12px; line-height: 1.5; } inp-group-addon:first-child,[riot-tag="inp-group-addon"]:first-child,[data-is="inp-group-addon"]:first-child{ border-top-left-radius: 4px; border-bottom-left-radius: 4px; } inp-group-addon:last-child,[riot-tag="inp-group-addon"]:last-child,[data-is="inp-group-addon"]:last-child{ border-top-right-radius: 4px; border-bottom-right-radius: 4px; } inp-group-addon:first-child btn button,[riot-tag="inp-group-addon"]:first-child btn button,[data-is="inp-group-addon"]:first-child btn button{ border-top-right-radius: 0; border-bottom-right-radius: 0; } inp-group-addon:last-child btn button,[riot-tag="inp-group-addon"]:last-child btn button,[data-is="inp-group-addon"]:last-child btn button{ border-top-left-radius: 0; border-bottom-left-radius: 0; } inp-group-addon[size="lg"] btn button,[riot-tag="inp-group-addon"][size="lg"] btn button,[data-is="inp-group-addon"][size="lg"] btn button{ padding: 10px 16px; margin: -11px -17px; vertical-align: inherit; font-size: 18px; line-height: 1.3333333; } inp-group-addon btn button,[riot-tag="inp-group-addon"] btn button,[data-is="inp-group-addon"] btn button{ padding: 6px 12px; margin: -7px -13px; vertical-align: inherit; } inp-group-addon[size="sm"] btn button,[riot-tag="inp-group-addon"][size="sm"] btn button,[data-is="inp-group-addon"][size="sm"] btn button{ padding: 5px 10px; margin: -6px -11px; vertical-align: inherit; font-size: 12px; line-height: 1.5; } inp-group-addon[size="xs"] btn button,[riot-tag="inp-group-addon"][size="xs"] btn button,[data-is="inp-group-addon"][size="xs"] btn button{ padding: 1px 5px; margin: -2px -6px; vertical-align: inherit; font-size: 12px; line-height: 1.5; }', '', function (opts) {
+    this.mixin(parentScope);
+});
+
 riot.tag2('input-img', '<img riot-src="{value || opts.placeholder}" width="{opts.width || 100}" height="{opts.height || 100}"> <input if="{opts.name}" name="{opts.name}" type="hidden" value="{value}">', 'input-img { position: relative; display: inline-block; vertical-align: middle; padding: 4px; line-height: 1em; border: 1px solid #ccc; border-radius: 5px; overflow: hidden; } input-img.highlight { box-shadow: 0 0 5px #419bf9; } input-img > img { display: block; border-radius: 3px; }', '', function (opts) {
   var _this = this;
 

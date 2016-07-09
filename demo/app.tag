@@ -17,6 +17,8 @@
   <app-radio-group></app-radio-group>
   <app-time-picker></app-time-picker>
   <app-calendar></app-calendar>
+  <app-inp></app-inp>
+  <app-inp-group></app-inp-group>
   <app-input-img></app-input-img>
 
   <footer>
