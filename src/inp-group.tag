@@ -8,7 +8,7 @@ import { parentScope } from 'riot-mixin-pack'
     this.mixin(parentScope)
 
     this.on('update', e => {
-      var nodes = this.root.querySelectorAll('inp')
+      var nodes = this.root.querySelectorAll('inp, inp-group-addon')
       for (var i = 0; i < nodes.length; i++) {
         nodes[i].setAttribute('size', this.opts.size);
       }
@@ -44,35 +44,6 @@ import { parentScope } from 'riot-mixin-pack'
       border-bottom-right-radius: 4px;
     }
 
-    inp-group-addon:first-child {
-      border-top-left-radius: 4px;
-      border-bottom-left-radius: 4px;
-    }
-
-    inp-group-addon:last-child {
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
-    }
-
-    /**
-     * Addon Sizes
-     */
-
-    :scope[size="lg"] inp-group-addon {
-      padding: 10px 16px;
-      font-size: 18px;
-      line-height: 1.3333333;
-    }
-    :scope[size="sm"] inp-group-addon {
-      padding: 5px 10px;
-      font-size: 12px;
-      line-height: 1.5;
-    }
-    :scope[size="xs"] inp-group-addon {
-      padding: 1px 5px;
-      font-size: 12px;
-      line-height: 1.5;
-    }
 
     /**
      * Input Sizes
@@ -102,5 +73,6 @@ import { parentScope } from 'riot-mixin-pack'
        border-top-right-radius: 3px;
        border-bottom-right-radius: 3px;
      }
+
   </style>
 </inp-group>

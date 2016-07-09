@@ -66,6 +66,107 @@
     </p>
   </section>
 
+  <h3>Button Inputs</h3>
+
+  <section>
+    <p>
+      <inp-group size="lg">
+        <inp-group-addon>
+          <btn>Normal</btn>
+        </inp-group-addon>
+        <inp placeholder="Buttons"></inp>
+      </inp-group>
+
+      <inp-group size="lg">
+        <inp-group-addon>
+          <btn option="primary">Primary</btn>
+        </inp-group-addon>
+        <inp placeholder="Buttons"></inp>
+      </inp-group>
+
+      <inp-group size="lg">
+        <inp-group-addon>
+          <btn option="success">Success</btn>
+        </inp-group-addon>
+        <inp placeholder="Buttons"></inp>
+      </inp-group>
+    </p>
+    <p>
+      <inp-group>
+        <inp-group-addon>
+          <btn>Normal</btn>
+        </inp-group-addon>
+        <inp placeholder="Buttons"></inp>
+      </inp-group>
+
+      <inp-group>
+        <inp-group-addon>
+          <btn option="primary">Primary</btn>
+        </inp-group-addon>
+        <inp placeholder="Buttons"></inp>
+      </inp-group>
+
+      <inp-group>
+        <inp-group-addon>
+          <btn option="success">Success</btn>
+        </inp-group-addon>
+        <inp placeholder="Buttons"></inp>
+      </inp-group>
+    </p>
+    <p>
+      <inp-group size="sm">
+        <inp-group-addon>
+          <btn>Normal</btn>
+        </inp-group-addon>
+        <inp placeholder="Buttons"></inp>
+      </inp-group>
+
+      <inp-group size="sm">
+        <inp-group-addon>
+          <btn option="primary">Primary</btn>
+        </inp-group-addon>
+        <inp placeholder="Buttons"></inp>
+      </inp-group>
+
+      <inp-group size="sm">
+        <inp-group-addon>
+          <btn option="success">Success</btn>
+        </inp-group-addon>
+        <inp placeholder="Buttons"></inp>
+      </inp-group>
+    </p>
+    <p>
+      <inp-group size="xs">
+        <inp-group-addon>
+          <btn>Normal</btn>
+        </inp-group-addon>
+        <inp placeholder="Buttons"></inp>
+      </inp-group>
+
+      <inp-group size="xs">
+        <inp-group-addon>
+          <btn option="primary">Primary</btn>
+        </inp-group-addon>
+        <inp placeholder="Buttons"></inp>
+      </inp-group>
+
+      <inp-group size="xs">
+        <inp-group-addon>
+          <btn option="success">Success</btn>
+        </inp-group-addon>
+        <inp placeholder="Buttons"></inp>
+      </inp-group>
+    </p>
+  </section>
+  <highlight>
+    &lt;inp-group&gt;<br />
+      &nbsp;&nbsp;&lt;inp-group-addon&gt;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;btn option="success"&gt;Success&lt;/btn&gt;<br />
+      &nbsp;&nbsp;&lt;/inp-group-addon&gt;<br />
+      &nbsp;&nbsp;&lt;inp placeholder="Buttons"&gt;&lt;/inp&gt;<br />
+    &lt;/inp-group&gt;
+  </highlight>
+
   <style scoped>
     :scope {
       display: block;
