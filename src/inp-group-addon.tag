@@ -6,6 +6,13 @@ import { parentScope } from 'riot-mixin-pack'
 
   <script>
     this.mixin(parentScope)
+
+    this.on('update', e => {
+      var nodes = this.root.querySelectorAll('btn')
+      for (var i = 0; i < nodes.length; i++) {
+        nodes[i].setAttribute('size', this.opts.size);
+      }
+    });
   </script>
 
   <style scoped>
@@ -68,8 +75,6 @@ import { parentScope } from 'riot-mixin-pack'
       padding: 10px 16px;
       margin: -11px -17px;
       vertical-align: inherit;
-      font-size: 18px;
-      line-height: 1.3333333;
     }
 
     btn button {
@@ -82,16 +87,12 @@ import { parentScope } from 'riot-mixin-pack'
       padding: 5px 10px;
       margin: -6px -11px;
       vertical-align: inherit;
-      font-size: 12px;
-      line-height: 1.5;
     }
 
     :scope[size="xs"] btn button {
       padding: 1px 5px;
       margin: -2px -6px;
       vertical-align: inherit;
-      font-size: 12px;
-      line-height: 1.5;
     }
   </style>
 
